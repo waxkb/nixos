@@ -102,6 +102,7 @@ in
     starship
     stow
     # tex
+    tmux
     tofi
     tree
     tree-sitter
