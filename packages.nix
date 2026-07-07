@@ -106,6 +106,7 @@ in
     tofi
     tree
     tree-sitter
+    typioca
     udisks
     unzip
     # uv
