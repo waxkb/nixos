@@ -108,8 +108,12 @@
         server = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            ./hosts/server
             inputs.hjem.nixosModules.default
+            ./hosts/server
+            ./modules/global
+            ./modules/hjem.nix
+            ./modules/laptop.nix
+            ./modules/podman.nix
           ];
           specialArgs = {
             inherit inputs;
