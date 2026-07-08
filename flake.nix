@@ -85,7 +85,16 @@
             inputs.ncro.nixosModules.default
             ./hosts/nixos
             ./modules/global
-            ./modules/podman.nix
+            ./modules/optional/ccache.nix
+            ./modules/optional/desktop.nix
+            ./modules/optional/direnv.nix
+            ./modules/optional/fonts.nix
+            ./modules/optional/greetd.nix
+            ./modules/optional/ncro.nix
+            ./modules/optional/nh.nix
+            ./modules/optional/nixos-core.nix
+            ./modules/optional/nvidia.nix
+            ./modules/optional/podman.nix
             # sss.nixosModules.default
             {
               nixpkgs.overlays = [
@@ -113,9 +122,9 @@
             inputs.hjem.nixosModules.default
             ./hosts/server
             ./modules/global
-            ./modules/hjem.nix
-            ./modules/laptop.nix
-            ./modules/podman.nix
+            ./modules/optional/hjem.nix
+            ./modules/optional/podman.nix
+            ./modules/optional/server-laptop.nix
           ];
           specialArgs = {
             inherit inputs;

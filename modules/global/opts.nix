@@ -17,4 +17,15 @@
     enable = true;
     defaultEditor = true;
   };
+
+  programs.zsh = {
+    enable = true;
+  };
+
+  documentation.enable = false;
+  documentation.man.enable = false;
+
+  services.desktopManager.gnome.enable = false;
+
+  services.envfs.enable = true;
 }
