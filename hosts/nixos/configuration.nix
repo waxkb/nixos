@@ -11,11 +11,6 @@ let
 in
 {
 
-  imports = [
-    ./hardware-configuration.nix
-    ./packages.nix
-  ];
-
   # nix.package = pkgs.lixPackageSets.git.lix;
 
   system.nixos-core.enable = true;
