@@ -9,6 +9,7 @@
   users.users.max = {
     isNormalUser = true;
     description = "max";
+    shell = pkgs.zsh;
 
     extraGroups = [
       "wheel"

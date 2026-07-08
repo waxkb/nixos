@@ -41,8 +41,6 @@ in
   #   compressor = "lz4";
   # };
 
-  boot.supportedFilesystems = [ "bcachefs" ];
-
   services.ncro = {
     enable = true;
     settings = {
@@ -81,11 +79,6 @@ in
 
   nix.settings.substituters = [ "http://localhost:8081" ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-  };
-
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -104,15 +97,6 @@ in
   #   enable = true;
   #   code = true;
   # };
-
-  virtualisation = {
-    containers.enable = true;
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
 
   programs.kdeconnect.enable = false;
 
@@ -175,38 +159,12 @@ in
 
   system.stateVersion = "25.11";
 
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 1;
-
   boot.loader.limine = {
     enable = false;
     maxGenerations = null;
     extraConfig = ''
       quiet: yes
     '';
-  };
-
-  boot.loader.systemd-boot = {
-    enable = true;
-    configurationLimit = null;
-  };
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
-
-  users.users.max = {
-    isNormalUser = true;
-    description = "max";
-    shell = pkgs.zsh;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "podman"
-      "input"
-    ];
-    packages = [ ];
   };
 
   services.power-profiles-daemon.enable = false;
@@ -268,27 +226,9 @@ in
 
   systemd.services.NetworkManager-wait-online.enable = false; # Doesn't wait to connect to internet before booting
 
-  systemd.services.systemd-udev-settle.enable = false;
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "nixos";
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "America/Los_Angeles";
-
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
 
   services.xserver = {
     enable = true;

@@ -84,6 +84,8 @@
             inputs.dms.nixosModules.dank-material-shell
             inputs.ncro.nixosModules.default
             ./hosts/nixos
+            ./modules/global
+            ./modules/podman.nix
             # sss.nixosModules.default
             {
               nixpkgs.overlays = [
