@@ -2,12 +2,7 @@
   description = "saldkjf";
   inputs = {
 
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/567a49d1913ce81ac6e9582e3553dd90a955875f";
-
-    # home-manager.url = "github:nix-community/home-manager";
-
-    # home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     nixos-core.url = "github:manic-systems/nixos-core";
 
