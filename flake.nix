@@ -114,6 +114,7 @@
           inherit system;
           modules = [
             ./hosts/server
+            inputs.hjem.nixosModules.default
           ];
           specialArgs = {
             inherit inputs;
