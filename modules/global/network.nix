@@ -14,7 +14,7 @@
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
-      PermitRootLogin = "no";
+      PermitRootLogin = "yes";
       AllowUsers = [ "max" ];
       MaxAuthTries = 5;
       PerSourcePenalties = "crash:3600s authfail:3600s max:86400s";

@@ -47,6 +47,11 @@
 
     # sss.url = "github:SergioRibera/sss";
 
+    # deploy-rs = {
+    #   url = "github:serokell/deploy-rs";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
   };
   outputs =
     inputs@{
@@ -63,6 +68,7 @@
       glide,
       # sss,
       hjem,
+      # deploy-rs,
       ...
     }:
     let
@@ -130,6 +136,19 @@
             inherit inputs;
           };
         };
+
+        # deploy.nodes = {
+        #   nixos = {
+        #     hostname = "nixos";
+        #     profiles.system = {
+        #       sshUser = "root";
+        #       user = "root";
+        #       path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nixos;
+        #     };
+        #   };
+        # };
+
+        # checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
       };
     };
 }
