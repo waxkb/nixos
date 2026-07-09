@@ -57,6 +57,7 @@ in
     # claude-code
     codex
     curl
+    deploy-rs
     e2fsprogs
     efibootmgr
     fd
