@@ -131,6 +131,7 @@
             ./modules/optional/hjem.nix
             ./modules/optional/podman.nix
             ./modules/optional/server-laptop.nix
+            ./modules/optional/nh.nix
           ];
           specialArgs = {
             inherit inputs;
