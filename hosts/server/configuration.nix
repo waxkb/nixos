@@ -10,7 +10,6 @@
   environment.systemPackages = with pkgs; [
     btop
     git
-    nixfmt-rs
     starship
   ];
 
