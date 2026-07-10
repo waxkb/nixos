@@ -58,7 +58,7 @@ in
     codex
     curl
     deploy-rs
-    e2fsprogs
+    # e2fsprogs
     efibootmgr
     fd
     file
@@ -74,8 +74,8 @@ in
         AutofillCreditCardEnabled = false;
       };
     })
-    gptfdisk
-    halloy
+    # gptfdisk
+    # halloy
     hyperfine
     hyprlock
     hyprpicker
@@ -88,13 +88,13 @@ in
     matugenFixed
     microfetch
     inputs.ncro.packages.${pkgs.system}.ncro
-    neo
+    # neo
     niri
     noctalia
-    nvme-cli
+    # nvme-cli
     # noctalia-shell
     opencode
-    parted
+    # parted
     pavucontrol
     pkg-config
     playerctl
@@ -103,12 +103,12 @@ in
     starship
     stow
     # tex
-    tmux
+    # tmux
     tofi
     tree
     tree-sitter
-    typioca
-    udisks
+    # typioca
+    # udisks
     unzip
     # uv
     # wayland-bongocat
@@ -119,9 +119,9 @@ in
     yazi
     zathura
     zathuraPkgs.zathura_pdf_poppler
-    inputs.zen-browser.packages.${pkgs.system}.default
+    # inputs.zen-browser.packages.${pkgs.system}.default
     zoom-us
-    zsh
+    # zsh
 
     # ---Neovim formatters---
 
