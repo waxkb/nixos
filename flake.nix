@@ -101,6 +101,7 @@
             ./modules/optional/nixos-core.nix
             ./modules/optional/nvidia.nix
             ./modules/optional/podman.nix
+            ./modules/optional/steam.nix
             # sss.nixosModules.default
             {
               nixpkgs.overlays = [
