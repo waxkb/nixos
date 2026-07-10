@@ -112,6 +112,7 @@ in
     unzip
     # uv
     # wayland-bongocat
+    wev
     wget
     wl-clipboard
     xwayland-satellite
