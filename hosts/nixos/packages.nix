@@ -58,6 +58,7 @@ in
     codex
     curl
     deploy-rs
+    discord-canary
     # e2fsprogs
     efibootmgr
     fd
@@ -100,6 +101,7 @@ in
     playerctl
     pulseaudio
     ripgrep
+    roccat-tools
     starship
     stow
     # tex
