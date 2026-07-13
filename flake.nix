@@ -94,7 +94,6 @@
             ./modules/optional/ccache.nix
             ./modules/optional/desktop.nix
             ./modules/optional/direnv.nix
-            ./modules/optional/flatpak.nix
             ./modules/optional/fonts.nix
             ./modules/optional/greetd.nix
             ./modules/optional/ncro.nix
