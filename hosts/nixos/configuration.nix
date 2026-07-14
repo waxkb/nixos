@@ -99,8 +99,6 @@ in
 
   systemd.services.NetworkManager-wait-online.enable = false; # Doesn't wait to connect to internet before booting
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   networking.hostName = "nixos";
 
   nixpkgs.config = {
