@@ -61,6 +61,7 @@ in
     discord-canary
     # e2fsprogs
     efibootmgr
+    fast
     fd
     file
     fio
