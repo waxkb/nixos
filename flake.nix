@@ -96,6 +96,7 @@
             ./modules/optional/direnv.nix
             ./modules/optional/fonts.nix
             ./modules/optional/greetd.nix
+            ./modules/optional/latestkernel.nix
             ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
             ./modules/optional/nixos-core.nix
@@ -130,6 +131,7 @@
             ./hosts/server
             ./modules/global
             ./modules/optional/hjem.nix
+            ./modules/optional/latestkernel.nix
             ./modules/optional/podman.nix
             ./modules/optional/server-laptop.nix
             ./modules/optional/nh.nix
