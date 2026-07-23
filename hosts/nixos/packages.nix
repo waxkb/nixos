@@ -55,14 +55,15 @@ in
     # broot
     btop
     # claude-code
-    codex
+    # codex
     curl
     deploy-rs
-    discord-canary
+    # discord-canary
+    dua
     # e2fsprogs
     efibootmgr
     fast
-    fd
+    # fd
     file
     fio
     foot
@@ -102,7 +103,7 @@ in
     playerctl
     pulseaudio
     ripgrep
-    roccat-tools
+    # roccat-tools
     starship
     stow
     # tex
