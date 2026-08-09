@@ -55,11 +55,11 @@ in
     # broot
     btop
     # claude-code
-    # codex
+    codex
     curl
     deploy-rs
     # discord-canary
-    dua
+    # dua
     # e2fsprogs
     efibootmgr
     fast
@@ -124,7 +124,6 @@ in
     zathura
     zathuraPkgs.zathura_pdf_poppler
     # inputs.zen-browser.packages.${pkgs.system}.default
-    zoom-us
     # zsh
 
     # ---Neovim formatters---
