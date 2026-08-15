@@ -34,7 +34,7 @@
     };
 
     tuigreet = {
-      url = "github:NotAShelf/tuigreet";
+      url = "github:tuigreet/tuigreet";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -106,20 +106,6 @@
             # sss.nixosModules.default
             {
               nixpkgs.overlays = [
-                (final: prev: {
-                  niri = prev.niri.override {
-                    libdisplay-info = prev.libdisplay-info.overrideAttrs (old: {
-                      version = "0.3.0";
-                      src = prev.fetchFromGitLab {
-                        domain = "gitlab.freedesktop.org";
-                        owner = "emersion";
-                        repo = "libdisplay-info";
-                        rev = "0.3.0";
-                        hash = "sha256-nXf2KGovNKvcchlHlzKBkAOeySMJXgxMpbi5z9gLrdc=";
-                      };
-                    });
-                  };
-                })
                 # (final: prev: {
                 #   inherit (prev.lixPackageSets.stable)
                 #     nixpkgs-review
