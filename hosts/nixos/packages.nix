@@ -80,7 +80,6 @@ in
     # fd
     file
     fio
-    firefox
     foot
     fzf
     gcc
@@ -107,7 +106,7 @@ in
     matugenFixed
     microfetch
     mpv
-    inputs.ncro.packages.${pkgs.system}.ncro
+    # inputs.ncro.packages.${pkgs.system}.ncro
     # neo
     niri
     inputs.nix-alien.packages.${pkgs.system}.nix-alien
@@ -159,10 +158,10 @@ in
 
     bash-language-server
     jdt-language-server
-    (inputs.jls.packages.${pkgs.system}.default.override {
-      jdk = pkgs.openjdk25;
-      maven = jlsMaven;
-    })
+    # (inputs.jls.packages.${pkgs.system}.default.override {
+    #   jdk = pkgs.openjdk25;
+    #   maven = jlsMaven;
+    # })
     lua-language-server
     # ty
     # rust-analyzer

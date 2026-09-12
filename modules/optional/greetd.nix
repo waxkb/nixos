@@ -10,9 +10,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${
-          inputs.tuigreet.packages.${pkgs.system}.tuigreet
-        }/bin/tuigreet --cmd niri-session --remember --remember-session";
+        command = "${lib.getExe pkgs.tuigreet} --time --remember --remember-session --asterisks --cmd niri-session";
         user = "greeter";
       };
     };

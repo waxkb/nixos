@@ -4,14 +4,9 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    nixos-core.url = "github:manic-systems/nixos-core";
+    # nixos-core.url = "github:manic-systems/nixos-core";
 
-    ncro.url = "github:manic-systems/ncro";
-
-    # zen-browser = {
-    #   url = "github:0xc000022070/zen-browser-flake";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    # ncro.url = "github:manic-systems/ncro";
 
     matugen = {
       url = "github:InioX/Matugen";
@@ -33,11 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    tuigreet = {
-      url = "github:tuigreet/tuigreet";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # claude-code.url = "github:sadjow/claude-code-nix";
 
     glide = {
@@ -56,10 +46,10 @@
       url = "github:DeusData/codebase-memory-mcp";
     };
 
-    jls = {
-      url = "github:idelice/jls";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # jls = {
+    #   url = "github:idelice/jls";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     nix-alien.url = "github:thiagokokada/nix-alien";
 
@@ -68,20 +58,18 @@
     inputs@{
       self,
       nixpkgs,
-      # zen-browser,
       matugen,
       dms,
       noctalia,
-      tuigreet,
       # claude-code,
-      ncro,
-      nixos-core,
+      # ncro,
+      # nixos-core,
       glide,
       # sss,
       hjem,
       deploy-rs,
       codebase-memory-mcp,
-      jls,
+      # jls,
       nix-alien,
       ...
     }:
@@ -100,9 +88,9 @@
         nixos = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
-            nixos-core.nixosModules.default
+            # nixos-core.nixosModules.default
             inputs.dms.nixosModules.dank-material-shell
-            inputs.ncro.nixosModules.default
+            # inputs.ncro.nixosModules.default
             ./hosts/nixos
             ./modules/global
             ./modules/optional/ccache.nix
@@ -111,9 +99,9 @@
             ./modules/optional/fonts.nix
             ./modules/optional/greetd.nix
             ./modules/optional/latestkernel.nix
-            ./modules/optional/ncro.nix
+            # ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
-            ./modules/optional/nixos-core.nix
+            # ./modules/optional/nixos-core.nix
             ./modules/optional/nvidia.nix
             ./modules/optional/podman.nix
             # sss.nixosModules.default
