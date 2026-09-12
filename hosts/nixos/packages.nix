@@ -55,7 +55,8 @@ in
     # broot
     btop
     # claude-code
-    codex
+    inputs.codebase-memory-mcp.packages.${pkgs.system}.default
+    # codex
     curl
     deploy-rs
     # discord-canary
@@ -66,6 +67,7 @@ in
     # fd
     file
     fio
+    firefox
     foot
     fzf
     git
@@ -90,6 +92,7 @@ in
     lz4
     matugenFixed
     microfetch
+    mpv
     inputs.ncro.packages.${pkgs.system}.ncro
     # neo
     niri

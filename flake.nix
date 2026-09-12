@@ -52,6 +52,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    codebase-memory-mcp = {
+      url = "github:DeusData/codebase-memory-mcp";
+    };
+
   };
   outputs =
     inputs@{
@@ -69,6 +73,7 @@
       # sss,
       hjem,
       deploy-rs,
+      codebase-memory-mcp,
       ...
     }:
     let
@@ -102,7 +107,6 @@
             ./modules/optional/nixos-core.nix
             ./modules/optional/nvidia.nix
             ./modules/optional/podman.nix
-            ./modules/optional/steam.nix
             # sss.nixosModules.default
             {
               nixpkgs.overlays = [
