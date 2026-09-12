@@ -46,15 +46,17 @@ in
 
   programs.kdeconnect.enable = false;
 
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc
-    zlib
-    libx11
-    libxinerama
-    libxext
-    libGL
-  ];
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc
+      zlib
+      libx11
+      libxinerama
+      libxext
+      libGL
+    ];
+  };
 
   # programs.obs-studio = {
   #   enable = true;

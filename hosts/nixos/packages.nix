@@ -122,6 +122,7 @@ in
     ripgrep
     # roccat-tools
     starship
+    steam-run
     stow
     # tex
     # tmux

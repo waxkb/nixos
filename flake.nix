@@ -110,6 +110,7 @@
             ./modules/optional/latestkernel.nix
             ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
+            ./modules/optional/nix-alien.nix
             ./modules/optional/nixos-core.nix
             ./modules/optional/nvidia.nix
             ./modules/optional/podman.nix
