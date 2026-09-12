@@ -45,6 +45,19 @@ let
 
     exec ${pkgs.matugen}/bin/matugen --base16-backend wal --source-color-index 0 "''${args[@]}"
   '';
+  jlsMaven = pkgs.maven.overrideAttrs (old: {
+    passthru = (old.passthru or { }) // {
+      buildMavenPackage =
+        args:
+        pkgs.maven.buildMavenPackage (
+          args
+          // {
+            mvnHash = "sha256-PNBuentUs+bv7IKK1mg9ZbisW7FtsENX/0bpkJ6qa6w=";
+            mvnParameters = (args.mvnParameters or "-DskipTests") + " -Dmaven.test.skip=true";
+          }
+        );
+    };
+  });
 in
 {
   environment.systemPackages = with pkgs; [
@@ -52,7 +65,7 @@ in
     bat
     bibata-cursors
     vimPlugins.blink-cmp
-    # broot
+    broot
     btop
     # claude-code
     inputs.codebase-memory-mcp.packages.${pkgs.system}.default
@@ -70,6 +83,7 @@ in
     firefox
     foot
     fzf
+    gcc
     git
     gita
     # gnumake
@@ -143,6 +157,10 @@ in
 
     bash-language-server
     jdt-language-server
+    (inputs.jls.packages.${pkgs.system}.default.override {
+      jdk = pkgs.openjdk25;
+      maven = jlsMaven;
+    })
     lua-language-server
     # ty
     # rust-analyzer

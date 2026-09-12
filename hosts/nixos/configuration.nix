@@ -68,7 +68,10 @@ in
   #   ];
   # };
 
-  programs.java.enable = true;
+  programs.java = {
+    enable = true;
+    package = pkgs.openjdk25;
+  };
 
   system.stateVersion = "25.11";
 

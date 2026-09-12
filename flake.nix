@@ -56,6 +56,11 @@
       url = "github:DeusData/codebase-memory-mcp";
     };
 
+    jls = {
+      url = "github:idelice/jls";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
   outputs =
     inputs@{
@@ -74,6 +79,7 @@
       hjem,
       deploy-rs,
       codebase-memory-mcp,
+      jls,
       ...
     }:
     let
