@@ -12,12 +12,6 @@
     "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     "nvidia.NVreg_TemporaryFilePath=/var/tmp"
     "amdgpu.enable=0"
-    "8250.nr_uarts=0"
-    "quiet"
-    "loglevel=3"
-    "systemd.show_status=auto"
-    "rd.udev.log_level=3"
-    "rd.systemd.show_status=false"
   ];
 
   hardware.nvidia = {
