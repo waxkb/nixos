@@ -131,7 +131,7 @@ in
 
     # ---Neovim formatters---
 
-    # astyle
+    astyle
     # clang-tools
     nixfmt-rs
     # ruff
@@ -142,6 +142,7 @@ in
     # ---Neovim lsp packages---
 
     bash-language-server
+    jdt-language-server
     lua-language-server
     # ty
     # rust-analyzer
