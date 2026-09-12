@@ -61,6 +61,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-alien.url = "github:thiagokokada/nix-alien";
+
   };
   outputs =
     inputs@{
@@ -80,6 +82,7 @@
       deploy-rs,
       codebase-memory-mcp,
       jls,
+      nix-alien,
       ...
     }:
     let
@@ -110,7 +113,6 @@
             ./modules/optional/latestkernel.nix
             ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
-            ./modules/optional/nix-alien.nix
             ./modules/optional/nixos-core.nix
             ./modules/optional/nvidia.nix
             ./modules/optional/podman.nix

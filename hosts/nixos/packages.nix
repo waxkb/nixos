@@ -110,6 +110,7 @@ in
     inputs.ncro.packages.${pkgs.system}.ncro
     # neo
     niri
+    inputs.nix-alien.packages.${pkgs.system}.nix-alien
     noctalia
     # nvme-cli
     # noctalia-shell
