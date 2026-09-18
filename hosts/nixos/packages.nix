@@ -70,6 +70,7 @@ in
     # claude-code
     inputs.codebase-memory-mcp.packages.${pkgs.system}.default
     # codex
+    contour
     curl
     deploy-rs
     # discord-canary
@@ -93,6 +94,7 @@ in
       };
     })
     # gptfdisk
+    gradle
     # halloy
     hyperfine
     hyprlock
@@ -119,6 +121,7 @@ in
     pkg-config
     playerctl
     pulseaudio
+    ratty
     ripgrep
     # roccat-tools
     starship
