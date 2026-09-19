@@ -6,6 +6,7 @@
   ...
 }:
 {
+  imports = [ inputs.pi.nixosModules.default ];
   programs.pi.coding-agent = {
     enable = true;
   };

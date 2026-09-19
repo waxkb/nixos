@@ -109,6 +109,7 @@
             ./modules/optional/nh.nix
             # ./modules/optional/nixos-core.nix
             ./modules/optional/nvidia.nix
+            ./modules/optional/pi.nix
             ./modules/optional/podman.nix
             # sss.nixosModules.default
             {
