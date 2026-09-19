@@ -33,4 +33,5 @@
   };
 
   systemd.services."getty@tty1".enable = false;
+  hardware.nvidia-container-toolkit.enable = true;
 }
