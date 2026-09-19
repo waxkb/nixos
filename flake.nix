@@ -53,6 +53,11 @@
 
     nix-alien.url = "github:thiagokokada/nix-alien";
 
+    pi = {
+      url = "github:lukasl-dev/pi.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
   outputs =
     inputs@{
@@ -71,6 +76,7 @@
       codebase-memory-mcp,
       # jls,
       nix-alien,
+      pi,
       ...
     }:
     let
