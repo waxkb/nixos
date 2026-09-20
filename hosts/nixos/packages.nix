@@ -139,7 +139,7 @@ in
     # ---Neovim lsp packages---
 
     # bash-language-server
-    jdt-language-server
+    (jdt-language-server.override { jdk = pkgs.openjdk25; })
     # (inputs.jls.packages.${pkgs.system}.default.override {
     #   jdk = pkgs.openjdk25;
     #   maven = jlsMaven;

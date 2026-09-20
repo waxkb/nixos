@@ -12,8 +12,6 @@
       # nerd-fonts.iosevka
       maple-mono.NF-unhinted
       # commit-mono
-      inter
-      noto-fonts
       material-symbols
       corefonts
     ];
@@ -30,8 +28,6 @@
         rgba = "none";
       };
       defaultFonts = {
-        serif = [ "Noto Serif" ];
-        sansSerif = [ "Inter" ];
         monospace = [ "Maple Mono NF" ];
       };
     };
