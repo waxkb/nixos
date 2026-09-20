@@ -35,8 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # sss.url = "github:SergioRibera/sss";
-
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,8 +44,6 @@
     #   url = "github:idelice/jls";
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
-
-    # nix-alien.url = "github:thiagokokada/nix-alien";
 
     pi = {
       url = "github:lukasl-dev/pi.nix";
@@ -66,11 +62,9 @@
       # ncro,
       # nixos-core,
       glide,
-      # sss,
       hjem,
       deploy-rs,
       # jls,
-      # nix-alien,
       pi,
       ...
     }:
@@ -99,6 +93,7 @@
             ./modules/optional/direnv.nix
             ./modules/optional/fonts.nix
             ./modules/optional/greetd.nix
+            ./modules/optional/java.nix
             ./modules/optional/latestkernel.nix
             # ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
@@ -109,14 +104,6 @@
             # sss.nixosModules.default
             {
               nixpkgs.overlays = [
-                # (final: prev: {
-                #   inherit (prev.lixPackageSets.stable)
-                #     nixpkgs-review
-                #     nix-eval-jobs
-                #     nix-fast-build
-                #     colmena
-                #     ;
-                # })
                 noctalia.overlays.default
                 # claude-code.overlays.default
               ];

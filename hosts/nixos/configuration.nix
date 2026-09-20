@@ -10,9 +10,6 @@ let
   system = pkgs.system;
 in
 {
-
-  # nix.package = pkgs.lixPackageSets.git.lix;
-
   fileSystems."/" = lib.mkForce {
     device = "/dev/disk/by-label/nixos";
     fsType = "bcachefs";
@@ -69,11 +66,6 @@ in
   #     obs-pipewire-audio-capture
   #   ];
   # };
-
-  programs.java = {
-    enable = true;
-    package = pkgs.openjdk25;
-  };
 
   system.stateVersion = "25.11";
 
