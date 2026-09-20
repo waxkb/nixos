@@ -51,7 +51,7 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
-    nix-alien.url = "github:thiagokokada/nix-alien";
+    # nix-alien.url = "github:thiagokokada/nix-alien";
 
     pi = {
       url = "github:lukasl-dev/pi.nix";
@@ -75,7 +75,7 @@
       deploy-rs,
       codebase-memory-mcp,
       # jls,
-      nix-alien,
+      # nix-alien,
       pi,
       ...
     }:
