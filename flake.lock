@@ -60,24 +60,6 @@
         "type": "github"
       }
     },
-    "codebase-memory-mcp": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1789245502,
-        "narHash": "sha256-zVauS6QXC8FGkUp+GbEtKL/8y/rQ7/WloipipzJUFUw=",
-        "owner": "DeusData",
-        "repo": "codebase-memory-mcp",
-        "rev": "93486bca2257d051f57340efda54dee6dbb7e0ed",
-        "type": "github"
-      },
-      "original": {
-        "owner": "DeusData",
-        "repo": "codebase-memory-mcp",
-        "type": "github"
-      }
-    },
     "dank-qml-common": {
       "flake": false,
       "locked": {
@@ -288,16 +270,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1783915482,
-        "narHash": "sha256-FmieJB8/OUvNxbkboi7+IGfIuSXY3nF/hZQm8kD0r50=",
-        "owner": "NixOS",
+        "lastModified": 1789149629,
+        "narHash": "sha256-H6GwaZzZf+4npqv0tph94w9tZddSjFjmQrVsW0z78uk=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6cdc7fc76e8bf7fde9fa43a849fcaaa70e230dee",
+        "rev": "eaad089433ca2bb662274377d33df3d0e51ef28b",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
+        "owner": "nixos",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -329,22 +311,6 @@
       "original": {
         "owner": "nixos",
         "ref": "nixpkgs-26.05-darwin",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1789149629,
-        "narHash": "sha256-H6GwaZzZf+4npqv0tph94w9tZddSjFjmQrVsW0z78uk=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "eaad089433ca2bb662274377d33df3d0e51ef28b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -396,13 +362,12 @@
     },
     "root": {
       "inputs": {
-        "codebase-memory-mcp": "codebase-memory-mcp",
         "deploy-rs": "deploy-rs",
         "dms": "dms",
         "glide": "glide",
         "hjem": "hjem",
         "matugen": "matugen",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "noctalia": "noctalia",
         "pi": "pi"
       }

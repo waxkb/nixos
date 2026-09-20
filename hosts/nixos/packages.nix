@@ -67,18 +67,11 @@ in
     vimPlugins.blink-cmp
     broot
     btop
-    # claude-code
-    inputs.codebase-memory-mcp.packages.${pkgs.system}.default
-    # codex
-    contour
     curl
     deploy-rs
-    # discord-canary
-    # dua
     # e2fsprogs
     efibootmgr
     fast
-    # fd
     file
     fio
     foot
@@ -94,8 +87,6 @@ in
       };
     })
     # gptfdisk
-    gradle
-    # halloy
     hyperfine
     hyprlock
     hyprpicker
@@ -103,39 +94,29 @@ in
     iwd
     jq
     libnotify
-    # lsof
     lz4
     matugenFixed
     microfetch
     mpv
     # inputs.ncro.packages.${pkgs.system}.ncro
-    # neo
     niri
-    # inputs.nix-alien.packages.${pkgs.system}.nix-alien
     noctalia
+    nodejs_26
     # nvme-cli
-    # noctalia-shell
-    opencode
     # parted
     pavucontrol
     pkg-config
     playerctl
     pulseaudio
-    ratty
     ripgrep
-    # roccat-tools
     starship
-    # steam-run
     stow
     # tex
-    # tmux
     tofi
     tree
     tree-sitter
-    # typioca
     # udisks
     unzip
-    # uv
     # wayland-bongocat
     wev
     wget
@@ -144,8 +125,6 @@ in
     yazi
     zathura
     zathuraPkgs.zathura_pdf_poppler
-    # inputs.zen-browser.packages.${pkgs.system}.default
-    # zsh
 
     # ---Neovim formatters---
 
@@ -159,13 +138,13 @@ in
 
     # ---Neovim lsp packages---
 
-    bash-language-server
+    # bash-language-server
     jdt-language-server
     # (inputs.jls.packages.${pkgs.system}.default.override {
     #   jdk = pkgs.openjdk25;
     #   maven = jlsMaven;
     # })
-    lua-language-server
+    # lua-language-server
     # ty
     # rust-analyzer
 

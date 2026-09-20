@@ -42,10 +42,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    codebase-memory-mcp = {
-      url = "github:DeusData/codebase-memory-mcp";
-    };
-
     # jls = {
     #   url = "github:idelice/jls";
     #   inputs.nixpkgs.follows = "nixpkgs";
@@ -73,7 +69,6 @@
       # sss,
       hjem,
       deploy-rs,
-      codebase-memory-mcp,
       # jls,
       # nix-alien,
       pi,
