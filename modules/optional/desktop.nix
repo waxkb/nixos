@@ -45,6 +45,8 @@
     wireplumber.enable = true;
   };
 
+  services.speechd.enable = false;
+
   security.pam.loginLimits = [
     {
       domain = "*";
