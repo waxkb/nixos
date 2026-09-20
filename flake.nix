@@ -28,8 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # claude-code.url = "github:sadjow/claude-code-nix";
-
     glide = {
       url = "github:glide-browser/glide.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,7 +56,6 @@
       matugen,
       dms,
       noctalia,
-      # claude-code,
       # ncro,
       # nixos-core,
       glide,
@@ -105,7 +102,6 @@
             {
               nixpkgs.overlays = [
                 noctalia.overlays.default
-                # claude-code.overlays.default
               ];
             }
           ];

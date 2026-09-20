@@ -23,21 +23,11 @@
           priority = 20;
           public_key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
         }
-        # {
-        #   url = "https://claude-code.cachix.org";
-        #   priority = 5;
-        #   public_key = "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk=";
-        # }
         {
           url = "https://noctalia.cachix.org";
           priority = 5;
           public_key = "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=";
         }
-        # {
-        #   url = "https://sss.cachix.org";
-        #   priority = 5;
-        #   public_key = "sss.cachix.org-1:YI2JMG95LEu62PC7VMz75N7bypEdUz9Z/Il1hkGH4AA=";
-        # }
       ];
     };
   };
