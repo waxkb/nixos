@@ -103,11 +103,13 @@ in
     noctalia
     nodejs_26
     # nvme-cli
+    opencode
     # parted
     pavucontrol
     pkg-config
     playerctl
     pulseaudio
+    python314
     ripgrep
     starship
     stow
