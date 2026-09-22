@@ -116,4 +116,7 @@ in
   };
 
   services.blueman.enable = false;
+
+  services.accounts-daemon.enable = false;
+  services.geoclue2.enable = false;
 }

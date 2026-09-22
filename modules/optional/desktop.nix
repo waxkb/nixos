@@ -17,16 +17,8 @@
 
   programs.xwayland.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-wlr
-    ];
-    config.common.default = "*";
-  };
-
   programs.niri.enable = true;
+  programs.niri.useNautilus = false;
 
   programs.dank-material-shell = {
     enable = true;
@@ -41,7 +33,7 @@
     audio.enable = true;
     pulse.enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
+    alsa.support32Bit = false;
     wireplumber.enable = true;
   };
 
