@@ -455,8 +455,22 @@ git -c user.name=installer -c user.email=installer@localhost commit -m "add $HOS
   warn "git commit failed (continuing; install uses the working tree)"
 
 # ---------- install ----------
+# programs.ccache (included in every generated host) wraps compilers such as
+# noctalia's with a wrapper that hard-errors when $CCACHE_DIR is missing or
+# unwritable in the build sandbox. That dir is normally created by the
+# TARGET system's activation, which hasn't run yet, and the target's
+# nix.settings.extra-sandbox-paths is not in effect for the LIVE installer's
+# nix daemon -- so without this, ccache-built packages die during
+# nixos-install with e.g. meson's "Unknown compiler(s): [['gcc']]", then
+# build fine on every later nixos-rebuild. Provide the dir on the live
+# system (throwaway tmpfs; 0777 just needs to make ccache functional,
+# cache hits are irrelevant for a one-shot install) and mount it into the
+# installer's sandbox. Must match cacheDir in modules/optional/ccache.nix.
+mkdir -p /var/cache/ccache
+chmod 0777 /var/cache/ccache
 info "running nixos-install --flake .#$HOSTNAME (this takes a while)..."
-nixos-install --flake ".#$HOSTNAME" --no-root-passwd --show-trace
+nixos-install --flake ".#$HOSTNAME" --no-root-passwd --show-trace \
+  --option extra-sandbox-paths /var/cache/ccache
 
 # ---------- ~/nixos + /etc/nixos symlink on the target ----------
 info "setting up /home/max/nixos + /etc/nixos symlink on the target..."
