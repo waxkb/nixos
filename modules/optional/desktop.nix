@@ -20,10 +20,6 @@
   programs.niri.enable = true;
   programs.niri.useNautilus = false;
 
-  programs.dank-material-shell = {
-    enable = true;
-  };
-
   security.polkit.enable = true;
 
   security.rtkit.enable = true;

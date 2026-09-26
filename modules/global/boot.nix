@@ -8,7 +8,8 @@
 {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 1;
+  boot.loader.timeout = 0;
+  boot.initrd.checkJournalingFS = false;
 
   systemd.services.systemd-udev-settle.enable = false;
   services.journald.settings.Journal = {

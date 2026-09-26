@@ -100,6 +100,7 @@ in
     mpv
     # inputs.ncro.packages.${pkgs.system}.ncro
     niri
+    nix-graph
     noctalia
     nodejs_26
     # nvme-cli
@@ -119,6 +120,7 @@ in
     tree-sitter
     # udisks
     unzip
+    w3m
     # wayland-bongocat
     wev
     wget

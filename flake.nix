@@ -13,11 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    dms = {
-      url = "github:AvengeMedia/DankMaterialShell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     noctalia = {
       url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -54,7 +49,6 @@
       self,
       nixpkgs,
       matugen,
-      dms,
       noctalia,
       # ncro,
       # nixos-core,
@@ -81,7 +75,6 @@
           inherit system;
           modules = [
             # nixos-core.nixosModules.default
-            inputs.dms.nixosModules.dank-material-shell
             # inputs.ncro.nixosModules.default
             ./hosts/nixos
             ./modules/global
