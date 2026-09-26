@@ -45,6 +45,10 @@ ask() { # $1=prompt $2=var_name $3=default(optional)
     printf '%s: ' "$prompt"
   fi
   IFS= read -r ans || die "input aborted"
+  # strip leading/trailing whitespace: pasted paths often carry a
+  # trailing space or CR, which would fail the -b check below
+  ans="${ans#"${ans%%[![:space:]]*}"}"
+  ans="${ans%"${ans##*[![:space:]]}"}"
   if [ -z "$ans" ] && [ -n "$def" ]; then ans="$def"; fi
   printf -v "$var" '%s' "$ans"
 }
@@ -82,17 +86,48 @@ if ! getent hosts github.com >/dev/null 2>&1; then
   warn "cannot resolve github.com; attempting anyway (nmcli may be needed for Wi-Fi)"
 fi
 
-# ---------- disk selection ----------
-info "available disks:"
-lsblk -d -n -o NAME,SIZE,MODEL,TRAN,TYPE 2>/dev/null | awk '$5=="disk" {print "/dev/"$0}' || \
-  lsblk -d -o NAME,SIZE,MODEL,TRAN
+# ---------- disk selection (numbered menu, loops until valid) ----------
+CANDIDATES=()
+while read -r dev dtype; do
+  [ "$dtype" = "disk" ] || continue
+  case "$dev" in
+    /dev/loop*|/dev/ram*|/dev/fd*|/dev/sr*|/dev/dm-*) continue ;;
+  esac
+  CANDIDATES+=("$dev")
+done < <(lsblk -dnr -o PATH,TYPE 2>/dev/null || lsblk -dnr -o NAME,TYPE 2>/dev/null | sed 's|^|/dev/|')
+[ "${#CANDIDATES[@]}" -gt 0 ] || die "no candidate disks found (lsblk showed nothing usable)"
+
+info "candidate disks (in a QEMU VM this is usually /dev/vda):"
+i=0
+for dev in "${CANDIDATES[@]}"; do
+  i=$((i + 1))
+  printf '  %d) %s  [%s]\n' "$i" "$dev" "$(lsblk -dnr -o SIZE,MODEL "$dev" 2>/dev/null | tr -s ' ' | tr '\n' ' ')"
+done
 echo
+
 DISK=""
-ask "target disk to WIPE (e.g. /dev/nvme0n1 or /dev/sda)" DISK
-[ -b "$DISK" ] || die "$DISK is not a block device"
-case "$DISK" in /dev/*) :;; *) die "disk must look like /dev/...";; esac
+while true; do
+  pick=""
+  ask "target disk to WIPE: number from the list, or a full /dev/... path (q to abort)" pick
+  case "$pick" in
+    q|Q|quit|abort|exit) die "aborted (nothing was touched)" ;;
+  esac
+  if [[ "$pick" =~ ^[0-9]+$ ]] && [ "$pick" -ge 1 ] && [ "$pick" -le "${#CANDIDATES[@]}" ]; then
+    DISK="${CANDIDATES[$((pick - 1))]}"
+    break
+  elif [[ "$pick" == /dev/* ]] && [ -b "$pick" ]; then
+    DISK="$pick"
+    if ! printf '%s\n' "${CANDIDATES[@]}" | grep -qxF "$DISK"; then
+      warn "$DISK was not in the detected list, but it is a block device; continuing"
+    fi
+    break
+  else
+    echo "'$pick' is neither a menu number nor an existing block device."
+    echo "Pick a NUMBER from the list above (in this VM, probably the /dev/vda entry)."
+  fi
+done
 case "$DISK" in
-  *loop*|*ram*|*sr[0-9]*|*dm-*) die "refusing to install onto $DISK";;
+  *loop*|*ram*|*sr[0-9]*|*dm-*) die "refusing to install onto $DISK" ;;
 esac
 info "current layout of $DISK:"
 lsblk "$DISK" || true
