@@ -26,6 +26,11 @@
 set -euo pipefail
 
 REPO_URL="https://github.com/waxkb/nixos.git"
+DOTFILES_URL="https://github.com/waxkb/dotfiles.git"
+# Stowed as user max inside the target so first boot has a working
+# desktop (niri autostarts foot/noctalia from these). hypr is included
+# for hyprlock's config even though the session is niri, scripts for ~/scripts.
+STOW_PKGS="niri foot noctalia tofi starship git gita matugen yazi broot mime hypr scripts"
 WORKDIR="/tmp/nixos-install"
 STATE_FALLBACK="25.11"
 
@@ -485,6 +490,26 @@ chown -R 1000:100 /mnt/home/max/nixos 2>/dev/null || \
 rm -rf /mnt/etc/nixos
 ln -s /home/max/nixos /mnt/etc/nixos
 info "target: /etc/nixos -> /home/max/nixos"
+
+# ---------- dotfiles (without these, first login lands in a bare niri
+# session: niri autostarts foot/noctalia/tofi bindings from stowed config) ----------
+info "cloning dotfiles..."
+if [ -e /mnt/home/max/dotfiles ] && [ ! -L /mnt/home/max/dotfiles ]; then
+  rm -rf /mnt/home/max/dotfiles
+fi
+if git clone "$DOTFILES_URL" /mnt/home/max/dotfiles; then
+  chown -R 1000:100 /mnt/home/max/dotfiles 2>/dev/null || \
+    chown -R 1000:users /mnt/home/max/dotfiles 2>/dev/null || true
+  info "stowing dotfiles as max inside the target ($STOW_PKGS)..."
+  if command -v nixos-enter >/dev/null 2>&1 && \
+    nixos-enter --root /mnt -c "su max -s /bin/sh -c 'cd /home/max/dotfiles && stow $STOW_PKGS'"; then
+    info "dotfiles stowed: ~/.config wired to ~/dotfiles"
+  else
+    warn "automatic stow failed; on first boot run: cd ~/dotfiles && stow $STOW_PKGS"
+  fi
+else
+  warn "dotfiles clone failed; on first boot run: git clone $DOTFILES_URL ~/dotfiles && cd ~/dotfiles && stow $STOW_PKGS"
+fi
 
 echo
 info "DONE. Installed '$HOSTNAME' ($FORM) onto $DISK."
