@@ -78,6 +78,8 @@
             # inputs.ncro.nixosModules.default
             ./hosts/nixos
             ./modules/global
+            ./modules/hardware/cpu-amd.nix
+            ./modules/hardware/gpu-nvidia.nix
             ./modules/optional/ccache.nix
             ./modules/optional/desktop.nix
             ./modules/optional/direnv.nix
@@ -88,7 +90,7 @@
             # ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
             # ./modules/optional/nixos-core.nix
-            ./modules/optional/nvidia.nix
+            ./modules/optional/nix-ld.nix
             ./modules/optional/pi.nix
             ./modules/optional/podman.nix
             {

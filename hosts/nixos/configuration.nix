@@ -44,17 +44,10 @@ in
 
   programs.kdeconnect.enable = false;
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc
-      zlib
-      libx11
-      libxinerama
-      libxext
-      libGL
-    ];
-  };
+  # This box is NVIDIA-only: keep the iGPU off. Generic new hosts do
+  # NOT set this (see modules/hardware/gpu-nvidia.nix); hybrid laptops
+  # need both GPUs.
+  boot.kernelParams = [ "amdgpu.enable=0" ];
 
   # programs.obs-studio = {
   #   enable = true;
