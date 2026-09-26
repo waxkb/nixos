@@ -22,11 +22,7 @@ in
       "fmask=0077"
       "dmask=0077"
       "noatime"
-      "noauto"
-      "x-systemd.automount"
-      "x-systemd.idle-timeout=1min"
     ];
-    noCheckOnBoot = true;
   };
 
   # swapDevices = [

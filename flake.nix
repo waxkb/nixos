@@ -91,7 +91,6 @@
             ./modules/optional/nvidia.nix
             ./modules/optional/pi.nix
             ./modules/optional/podman.nix
-            # sss.nixosModules.default
             {
               nixpkgs.overlays = [
                 noctalia.overlays.default
