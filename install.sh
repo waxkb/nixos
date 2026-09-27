@@ -25,14 +25,14 @@
 
 set -euo pipefail
 
-REPO_URL="https://github.com/waxkb/nixos.git"
-DOTFILES_URL="https://github.com/waxkb/dotfiles.git"
+readonly REPO_URL="https://github.com/waxkb/nixos.git"
+readonly DOTFILES_URL="https://github.com/waxkb/dotfiles.git"
 # Stowed as user max inside the target so first boot has a working
 # desktop (niri autostarts foot/noctalia from these). hypr is included
 # for hyprlock's config even though the session is niri, scripts for ~/scripts.
-STOW_PKGS="niri foot noctalia tofi starship git gita matugen yazi broot mime hypr scripts"
-WORKDIR="/tmp/nixos-install"
-STATE_FALLBACK="25.11"
+readonly STOW_PKGS="niri foot noctalia tofi starship git gita matugen yazi broot mime hypr scripts"
+readonly WORKDIR="/tmp/nixos-install"
+readonly STATE_FALLBACK="25.11"
 
 die() { printf 'ERROR: %s\n' "$*" >&2; exit 1; }
 info() { printf '==> %s\n' "$*"; }
@@ -50,8 +50,8 @@ ask() { # $1=prompt $2=var_name $3=default(optional)
     printf '%s: ' "$prompt"
   fi
   IFS= read -r ans || die "input aborted"
-  # strip leading/trailing whitespace: pasted paths often carry a
-  # trailing space or CR, which would fail the -b check below
+  # Strip leading/trailing whitespace: pasted paths often carry a
+  # trailing space or CR, which would fail the -b check below.
   ans="${ans#"${ans%%[![:space:]]*}"}"
   ans="${ans%"${ans##*[![:space:]]}"}"
   if [ -z "$ans" ] && [ -n "$def" ]; then ans="$def"; fi
@@ -75,6 +75,25 @@ ask_secret() { # $1=prompt $2=var_name (hidden, confirmed, non-empty)
     echo "passwords do not match, try again"
   done
 }
+
+hash_pw() { # $1=password; prints $6$ SHA-512 crypt hash
+  local pw="$1" salt
+  salt="$(tr -dc 'a-zA-Z0-9./' </dev/urandom | head -c 16)"
+  if command -v mkpasswd >/dev/null 2>&1; then
+    mkpasswd -m sha-512 -S "$salt" "$pw"
+  elif command -v openssl >/dev/null 2>&1; then
+    openssl passwd -6 -salt "$salt" "$pw"
+  else
+    die "neither mkpasswd (whois) nor openssl found; rebuild the ISO from ~/iso/flake.nix"
+  fi
+}
+
+chown_as_max() { # $1=path on the target; best effort (uid may not resolve in the ISO)
+  chown -R 1000:100 "$1" 2>/dev/null || \
+    chown -R 1000:users "$1" 2>/dev/null || true
+}
+
+(( $# == 0 )) || die "this installer takes no arguments (usage: sudo bash install.sh)"
 
 # ---------- preconditions ----------
 [ "$(id -u)" -eq 0 ] || die "run as root (sudo bash install.sh)"
@@ -103,12 +122,11 @@ done < <(lsblk -dnr -o PATH,TYPE 2>/dev/null || lsblk -dnr -o NAME,TYPE 2>/dev/n
 [ "${#CANDIDATES[@]}" -gt 0 ] || die "no candidate disks found (lsblk showed nothing usable)"
 
 info "candidate disks (in a QEMU VM this is usually /dev/vda):"
-i=0
-for dev in "${CANDIDATES[@]}"; do
-  i=$((i + 1))
-  printf '  %d) %s  [%s]\n' "$i" "$dev" "$(lsblk -dnr -o SIZE,MODEL "$dev" 2>/dev/null | tr -s ' ' | tr '\n' ' ')"
+for idx in "${!CANDIDATES[@]}"; do
+  printf '  %d) %s  [%s]\n' "$((idx + 1))" "${CANDIDATES[idx]}" \
+    "$(lsblk -dnr -o SIZE,MODEL "${CANDIDATES[idx]}" 2>/dev/null | tr -s ' ' | tr '\n' ' ')"
 done
-echo
+printf '\n'
 
 DISK=""
 while true; do
@@ -117,19 +135,21 @@ while true; do
   case "$pick" in
     q|Q|quit|abort|exit) die "aborted (nothing was touched)" ;;
   esac
-  if [[ "$pick" =~ ^[0-9]+$ ]] && [ "$pick" -ge 1 ] && [ "$pick" -le "${#CANDIDATES[@]}" ]; then
-    DISK="${CANDIDATES[$((pick - 1))]}"
-    break
+  if [[ "$pick" =~ ^[0-9]+$ ]]; then
+    num=$((10#$pick)) # base-10: avoids octal misparse of 08/09
+    if (( num >= 1 && num <= ${#CANDIDATES[@]} )); then
+      DISK="${CANDIDATES[$((num - 1))]}"
+      break
+    fi
   elif [[ "$pick" == /dev/* ]] && [ -b "$pick" ]; then
     DISK="$pick"
     if ! printf '%s\n' "${CANDIDATES[@]}" | grep -qxF "$DISK"; then
       warn "$DISK was not in the detected list, but it is a block device; continuing"
     fi
     break
-  else
-    echo "'$pick' is neither a menu number nor an existing block device."
-    echo "Pick a NUMBER from the list above (in this VM, probably the /dev/vda entry)."
   fi
+  printf "'%s' is neither a menu number nor an existing block device.\n" "$pick"
+  echo "Pick a NUMBER from the list above (in this VM, probably the /dev/vda entry)."
 done
 case "$DISK" in
   *loop*|*ram*|*sr[0-9]*|*dm-*) die "refusing to install onto $DISK" ;;
@@ -137,13 +157,13 @@ esac
 info "current layout of $DISK:"
 lsblk "$DISK" || true
 sgdisk -p "$DISK" || true
-echo
+printf '\n'
 echo "ALL DATA ON $DISK WILL BE DESTROYED. No encryption, UEFI only."
 CONFIRM=""
 ask "type the disk path again to confirm the wipe ($DISK)" CONFIRM
 [ "$CONFIRM" = "$DISK" ] || die "confirmation mismatch, aborting (nothing was touched)"
 
-# partition device names: nvme0n1 -> p1, sda -> 1
+# Partition device names: nvme0n1 -> p1, sda -> 1.
 if [[ "$DISK" =~ [0-9]$ ]]; then PSEP="p"; else PSEP=""; fi
 ESP="${DISK}${PSEP}1"
 ROOT_PART="${DISK}${PSEP}2"
@@ -172,14 +192,17 @@ ROOT_PW=""; USER_PW=""
 ask_secret "password for root" ROOT_PW
 ask_secret "password for user max" USER_PW
 
-# ---------- auto-detect CPU ----------
-CPU_VENDOR=""
-if grep -qi genuineintel /proc/cpuinfo 2>/dev/null && grep -qi authenticamd /proc/cpuinfo 2>/dev/null; then
+# ---------- auto-detect CPU (read once, match case-insensitively) ----------
+CPUINFO="$(cat /proc/cpuinfo 2>/dev/null || true)"
+has_intel=0; has_amd_cpu=0
+if grep -qi genuineintel <<<"$CPUINFO"; then has_intel=1; fi
+if grep -qi authenticamd <<<"$CPUINFO"; then has_amd_cpu=1; fi
+if (( has_intel && has_amd_cpu )); then
   warn "mixed CPU vendors seen; including both cpu modules"
   CPU_VENDOR="both"
-elif grep -qi genuineintel /proc/cpuinfo 2>/dev/null; then
+elif (( has_intel )); then
   CPU_VENDOR="intel"
-elif grep -qi authenticamd /proc/cpuinfo 2>/dev/null; then
+elif (( has_amd_cpu )); then
   CPU_VENDOR="amd"
 else
   warn "could not detect CPU vendor; including both cpu modules"
@@ -187,14 +210,15 @@ else
 fi
 info "CPU vendor: $CPU_VENDOR"
 
-# ---------- auto-detect GPUs ----------
+# ---------- auto-detect GPUs (lowercase once, match by substring) ----------
 GPU_PCI="$(lspci -nn 2>/dev/null | grep -iE 'vga|3d|display' || true)"
-echo "$GPU_PCI"
+printf '%s\n' "$GPU_PCI"
+gpu_lc="$(printf '%s' "$GPU_PCI" | tr '[:upper:]' '[:lower:]')"
 HAVE_NVIDIA=0; HAVE_AMD=0; HAVE_INTEL=0
-if printf '%s' "$GPU_PCI" | grep -qi nvidia; then HAVE_NVIDIA=1; fi
-if printf '%s' "$GPU_PCI" | grep -qiE 'amd|ati|radeon'; then HAVE_AMD=1; fi
-if printf '%s' "$GPU_PCI" | grep -qi intel; then HAVE_INTEL=1; fi
-if [ "$HAVE_NVIDIA" -eq 0 ] && [ "$HAVE_AMD" -eq 0 ] && [ "$HAVE_INTEL" -eq 0 ]; then
+case "$gpu_lc" in *nvidia*) HAVE_NVIDIA=1 ;; esac
+case "$gpu_lc" in *amd*|*ati*|*radeon*) HAVE_AMD=1 ;; esac
+case "$gpu_lc" in *intel*) HAVE_INTEL=1 ;; esac
+if (( ! HAVE_NVIDIA && ! HAVE_AMD && ! HAVE_INTEL )); then
   warn "no known GPU detected (VM/unknown?). Continuing with generic modesetting only."
 fi
 info "GPUs detected: nvidia=$HAVE_NVIDIA amd=$HAVE_AMD intel=$HAVE_INTEL"
@@ -202,14 +226,15 @@ info "GPUs detected: nvidia=$HAVE_NVIDIA amd=$HAVE_AMD intel=$HAVE_INTEL"
 # ---------- swap size (laptops only): RAM size capped at 16G ----------
 SWAP_GIB=0
 if [ "$IS_LAPTOP" -eq 1 ]; then
-  MEM_KB="$(awk '/^MemTotal:/ {print $2}' /proc/meminfo)"
+  MEM_KB="$(awk '/^MemTotal:/ {print $2}' /proc/meminfo 2>/dev/null || true)"
+  MEM_KB="${MEM_KB:-0}"
   SWAP_GIB=$(( (MEM_KB + 1048575) / 1048576 ))
   [ "$SWAP_GIB" -lt 1 ] && SWAP_GIB=1
   [ "$SWAP_GIB" -gt 16 ] && SWAP_GIB=16
   info "RAM-based swap size: ${SWAP_GIB}G (capped at 16G)"
 fi
 
-echo
+printf '\n'
 info "summary: disk=$DISK host=$HOSTNAME form=$FORM cpu=$CPU_VENDOR gpus=(nvidia=$HAVE_NVIDIA amd=$HAVE_AMD intel=$HAVE_INTEL) swap=${SWAP_GIB}G"
 GO=""
 ask "proceed with WIPE + INSTALL? type YES" GO
@@ -254,9 +279,9 @@ lsblk "$DISK"
 
 # ---------- clone flake over HTTPS ----------
 info "cloning $REPO_URL over HTTPS..."
-rm -rf "$WORKDIR"
+rm -rf "${WORKDIR:?}"
 git clone "$REPO_URL" "$WORKDIR" || die "git clone failed (check network)"
-cd "$WORKDIR"
+cd "$WORKDIR" || die "could not cd to $WORKDIR"
 if [ -d "hosts/$HOSTNAME" ]; then
   die "hosts/$HOSTNAME already exists in the repo; pick another hostname"
 fi
@@ -264,18 +289,7 @@ if grep -qE "^[[:space:]]*$HOSTNAME = " flake.nix; then
   die "flake.nix already has an entry for '$HOSTNAME'"
 fi
 
-# ---------- password hashes (mkpasswd > openssl; both baked into the ISO) ----------
-hash_pw() { # $1=password; prints $6$ SHA-512 crypt hash
-  local pw="$1" salt
-  salt="$(tr -dc 'a-zA-Z0-9./' </dev/urandom | head -c 16)"
-  if command -v mkpasswd >/dev/null 2>&1; then
-    mkpasswd -m sha-512 -S "$salt" "$pw"
-  elif command -v openssl >/dev/null 2>&1; then
-    openssl passwd -6 -salt "$salt" "$pw"
-  else
-    die "neither mkpasswd (whois) nor openssl found; rebuild the ISO from ~/iso/flake.nix"
-  fi
-}
+# ---------- password hashes (mkpasswd preferred, openssl fallback; both baked into the ISO) ----------
 info "hashing passwords..."
 ROOT_HASH="$(hash_pw "$ROOT_PW")"
 USER_HASH="$(hash_pw "$USER_PW")"
@@ -484,9 +498,7 @@ if [ -e /mnt/home/max/nixos ] && [ ! -L /mnt/home/max/nixos ]; then
   rm -rf /mnt/home/max/nixos
 fi
 cp -a "$WORKDIR" /mnt/home/max/nixos
-# best-effort ownership (uid/gid may not resolve inside the ISO)
-chown -R 1000:100 /mnt/home/max/nixos 2>/dev/null || \
-  chown -R 1000:users /mnt/home/max/nixos 2>/dev/null || true
+chown_as_max /mnt/home/max/nixos
 rm -rf /mnt/etc/nixos
 ln -s /home/max/nixos /mnt/etc/nixos
 info "target: /etc/nixos -> /home/max/nixos"
@@ -498,8 +510,7 @@ if [ -e /mnt/home/max/dotfiles ] && [ ! -L /mnt/home/max/dotfiles ]; then
   rm -rf /mnt/home/max/dotfiles
 fi
 if git clone "$DOTFILES_URL" /mnt/home/max/dotfiles; then
-  chown -R 1000:100 /mnt/home/max/dotfiles 2>/dev/null || \
-    chown -R 1000:users /mnt/home/max/dotfiles 2>/dev/null || true
+  chown_as_max /mnt/home/max/dotfiles
   info "stowing dotfiles as max inside the target ($STOW_PKGS)..."
   if command -v nixos-enter >/dev/null 2>&1 && \
     nixos-enter --root /mnt -c "su max -s /bin/sh -c 'cd /home/max/dotfiles && stow $STOW_PKGS'"; then
@@ -511,7 +522,7 @@ else
   warn "dotfiles clone failed; on first boot run: git clone $DOTFILES_URL ~/dotfiles && cd ~/dotfiles && stow $STOW_PKGS"
 fi
 
-echo
+printf '\n'
 info "DONE. Installed '$HOSTNAME' ($FORM) onto $DISK."
 info "Unmount with: swapoff -a; umount -R /mnt ; then reboot and remove the ISO."
 info "First boot: log in as max (password you set). Push when ready: cd ~/nixos && git push."
