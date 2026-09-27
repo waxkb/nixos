@@ -63,14 +63,6 @@ in
 
   system.stateVersion = "25.11";
 
-  boot.loader.limine = {
-    enable = false;
-    maxGenerations = null;
-    extraConfig = ''
-      quiet: yes
-    '';
-  };
-
   services.power-profiles-daemon.enable = false;
   services.upower.enable = false;
 
@@ -81,10 +73,6 @@ in
   ];
 
   boot.initrd.includeDefaultModules = false;
-
-  boot.consoleLogLevel = 0;
-
-  systemd.services.systemd-journal-flush.enable = false;
 
   boot.initrd.systemd.enable = true;
 
