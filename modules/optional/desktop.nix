@@ -84,4 +84,6 @@
   };
 
   systemd.services."getty@tty1".enable = false;
+
+  security.pam.services.hyprlock.enable = true;
 }
