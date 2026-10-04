@@ -69,6 +69,7 @@ in
     btop
     curl
     deploy-rs
+    distrobox
     # e2fsprogs
     efibootmgr
     fast
@@ -143,7 +144,7 @@ in
     # ---Neovim lsp packages---
 
     # bash-language-server
-    (jdt-language-server.override { jdk = pkgs.openjdk25; })
+    (jdt-language-server.override { jdk = pkgs.temurin-bin-21; })
     # (inputs.jls.packages.${pkgs.system}.default.override {
     #   jdk = pkgs.openjdk25;
     #   maven = jlsMaven;

@@ -7,7 +7,13 @@
 }:
 {
   virtualisation = {
-    containers.enable = true;
+    containers = {
+      enable = true;
+      registries.search = [
+        "docker.io"
+        "quay.io"
+      ];
+    };
     podman = {
       enable = true;
       dockerCompat = true;

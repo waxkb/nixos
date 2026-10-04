@@ -8,6 +8,6 @@
 {
   programs.java = {
     enable = true;
-    package = pkgs.openjdk25;
+    package = pkgs.temurin-bin-21;
   };
 }
