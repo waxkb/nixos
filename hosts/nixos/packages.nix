@@ -114,8 +114,9 @@ in
     python314
     ripgrep
     starship
+    stdenv.cc.cc
     stow
-    # tex
+    tex
     tofi
     tree
     tree-sitter

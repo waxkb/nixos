@@ -20,4 +20,7 @@
       libGL
     ];
   };
+  environment.sessionVariables = {
+    NIX_GCC_LIB = "${pkgs.stdenv.cc.cc.lib}/lib";
+  };
 }
