@@ -93,6 +93,7 @@
             ./modules/optional/nix-ld.nix
             ./modules/optional/pi.nix
             ./modules/optional/podman.nix
+            ./modules/optional/yubikey.nix
             {
               nixpkgs.overlays = [
                 noctalia.overlays.default
