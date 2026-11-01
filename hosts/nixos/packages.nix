@@ -75,6 +75,7 @@ in
     fast
     file
     fio
+    firefox
     foot
     fzf
     gcc
