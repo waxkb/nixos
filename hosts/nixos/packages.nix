@@ -130,6 +130,8 @@ in
     wl-clipboard
     xwayland-satellite
     yazi
+    yubikey-manager
+    yubioath-flutter
     zathura
     zathuraPkgs.zathura_pdf_poppler
 
