@@ -7,10 +7,10 @@
 }:
 {
   imports = [
-  inputs.skwd-wall.nixosModules.default
+    inputs.skwd-wall.nixosModules.default
   ];
 
   services.skwd-deck = {
-      enable = true;
-    }
+    enable = true;
+  };
 }
