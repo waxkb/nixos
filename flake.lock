@@ -261,6 +261,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1787736819,
+        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "noctalia": {
       "inputs": {
         "nixpkgs": [
@@ -314,7 +330,27 @@
         "matugen": "matugen",
         "nixpkgs": "nixpkgs",
         "noctalia": "noctalia",
-        "pi": "pi"
+        "pi": "pi",
+        "skwd-wall": "skwd-wall"
+      }
+    },
+    "skwd-wall": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1792102655,
+        "narHash": "sha256-o8q1FyTfInU5jv+78iqkNuItaQ9aIyTAbUfv3YbFGms=",
+        "owner": "liixini",
+        "repo": "skwd-wall",
+        "rev": "3bd7d5763a13984cc5a2be0e8a19e9df2805ed88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "liixini",
+        "ref": "nix",
+        "repo": "skwd-wall",
+        "type": "github"
       }
     },
     "systems": {

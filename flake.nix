@@ -33,14 +33,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # jls = {
-    #   url = "github:idelice/jls";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
     pi = {
       url = "github:lukasl-dev/pi.nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    skwd-wall = {
+      url = "github:liixini/skwd-wall/nix";
     };
 
   };
@@ -57,6 +56,7 @@
       deploy-rs,
       # jls,
       pi,
+      skwd-wall,
       ...
     }:
     let
@@ -93,6 +93,7 @@
             ./modules/optional/nix-ld.nix
             ./modules/optional/pi.nix
             ./modules/optional/podman.nix
+            ./modules/optional/skwd-wall.nix
             ./modules/optional/yubikey.nix
             {
               nixpkgs.overlays = [
