@@ -20,13 +20,18 @@
         }
         {
           url = "https://nix-community.cachix.org";
-          priority = 20;
+          priority = 10;
           public_key = "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
         }
         {
           url = "https://noctalia.cachix.org";
-          priority = 5;
+          priority = 10;
           public_key = "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4=";
+        }
+        {
+          url = "https://umbriel.cachix.org";
+          priority = 10;
+          public_key = "umbriel.cachix.org-1:JfNq/2yg2S6D6z4Z2dVSZrZlDPQTKtexB6GAVLD98nw=";
         }
       ];
     };
