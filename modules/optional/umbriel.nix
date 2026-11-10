@@ -8,7 +8,7 @@
 {
   imports = [ inputs.umbriel.nixosModules.default ];
 
-  programs.umbriel.enable = true
+  programs.umbriel.enable = true;
 
   nix.settings = {
     extra-substituters = [ "https://umbriel.cachix.org" ];

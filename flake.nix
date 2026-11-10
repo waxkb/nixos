@@ -42,7 +42,7 @@
       url = "github:liixini/skwd-wall/nix";
     };
 
-    inputs.umbriel.url = "github:noctalia-dev/umbriel/cachix";
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
 
   };
   outputs =
@@ -87,6 +87,7 @@
             ./modules/optional/desktop.nix
             ./modules/optional/direnv.nix
             ./modules/optional/fonts.nix
+            ./modules/optional/gnupg.nix
             ./modules/optional/greetd.nix
             ./modules/optional/java.nix
             ./modules/optional/latestkernel.nix
