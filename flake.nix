@@ -33,10 +33,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pi = {
-      url = "github:lukasl-dev/pi.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # pi = {
+    #   url = "github:lukasl-dev/pi.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     skwd-wall = {
       url = "github:liixini/skwd-wall/nix";
@@ -56,8 +56,7 @@
       glide,
       hjem,
       deploy-rs,
-      # jls,
-      pi,
+      # pi,
       skwd-wall,
       umbriel,
       ...
@@ -95,7 +94,7 @@
             ./modules/optional/nh.nix
             # ./modules/optional/nixos-core.nix
             ./modules/optional/nix-ld.nix
-            ./modules/optional/pi.nix
+            # ./modules/optional/pi.nix
             ./modules/optional/podman.nix
             ./modules/optional/skwd-wall.nix
             ./modules/optional/umbriel.nix

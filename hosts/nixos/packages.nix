@@ -28,23 +28,23 @@ let
       ]
     )
   );
-  matugenFixed = pkgs.writeShellScriptBin "matugen" ''
-    #!/usr/bin/env bash
+  # matugenFixed = pkgs.writeShellScriptBin "matugen" ''
+  #   #!/usr/bin/env bash
 
-    args=()
-    for arg in "$@"; do
-      case "$arg" in
-        file://*)
-          args+=("$(printf '%s\n' "$arg" | sed 's|^file://||')")
-          ;;
-        *)
-          args+=("$arg")
-          ;;
-      esac
-    done
+  #   args=()
+  #   for arg in "$@"; do
+  #     case "$arg" in
+  #       file://*)
+  #         args+=("$(printf '%s\n' "$arg" | sed 's|^file://||')")
+  #         ;;
+  #       *)
+  #         args+=("$arg")
+  #         ;;
+  #     esac
+  #   done
 
-    exec ${pkgs.matugen}/bin/matugen --base16-backend wal --source-color-index 0 "''${args[@]}"
-  '';
+  #   exec ${pkgs.matugen}/bin/matugen --base16-backend wal --source-color-index 0 "''${args[@]}"
+  # '';
   jlsMaven = pkgs.maven.overrideAttrs (old: {
     passthru = (old.passthru or { }) // {
       buildMavenPackage =
@@ -65,17 +65,14 @@ in
     bat
     bibata-cursors
     vimPlugins.blink-cmp
-    broot
+    # broot
     btop
     curl
     deploy-rs
     distrobox
     # e2fsprogs
-    efibootmgr
-    fast
+    # efibootmgr
     file
-    fio
-    firefox
     foot
     fzf
     gcc
@@ -97,14 +94,14 @@ in
     jq
     libnotify
     lz4
-    matugenFixed
+    # matugenFixed
+    matugen
     microfetch
-    mpv
+    # mpv
     # inputs.ncro.packages.${pkgs.system}.ncro
-    niri
     nix-graph
+    nix-tree
     noctalia
-    nodejs_26
     # nvme-cli
     opencode
     # parted
@@ -117,13 +114,12 @@ in
     starship
     stdenv.cc.cc
     stow
-    tex
+    # tex
     tofi
     tree
     tree-sitter
     # udisks
     unzip
-    w3m
     # wayland-bongocat
     wev
     wget
@@ -131,7 +127,6 @@ in
     xwayland-satellite
     yazi
     yubikey-manager
-    yubioath-flutter
     zathura
     zathuraPkgs.zathura_pdf_poppler
 
