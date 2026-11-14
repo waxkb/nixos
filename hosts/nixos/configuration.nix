@@ -74,8 +74,6 @@ in
 
   boot.initrd.includeDefaultModules = false;
 
-  boot.initrd.systemd.enable = true;
-
   systemd.services.NetworkManager-wait-online.enable = false; # Doesn't wait to connect to internet before booting
 
   networking.hostName = "nixos";

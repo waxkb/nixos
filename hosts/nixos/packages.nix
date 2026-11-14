@@ -128,7 +128,8 @@ in
     yazi
     yubikey-manager
     zathura
-    zathuraPkgs.zathura_pdf_poppler
+    # zathuraPkgs.zathura_pdf_poppler
+    # (zathuraPkgs.zathuraWrapper.override { useMupdf = false; })
 
     # ---Neovim formatters---
 
@@ -143,7 +144,7 @@ in
     # ---Neovim lsp packages---
 
     # bash-language-server
-    (jdt-language-server.override { jdk = pkgs.temurin-bin-21; })
+    (jdt-language-server.override { jdk25 = pkgs.jdk25; })
     # (inputs.jls.packages.${pkgs.system}.default.override {
     #   jdk = pkgs.openjdk25;
     #   maven = jlsMaven;
