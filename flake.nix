@@ -90,6 +90,7 @@
             ./modules/optional/greetd.nix
             ./modules/optional/java.nix
             ./modules/optional/latestkernel.nix
+            ./modules/optional/llama-cpp.nix
             # ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
             # ./modules/optional/nixos-core.nix
