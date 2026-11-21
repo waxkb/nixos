@@ -38,6 +38,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Upstream llama.cpp, so new model support lands before nixpkgs catches up.
+    llama-cpp = {
+      url = "github:ggml-org/llama.cpp";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     skwd-wall = {
       url = "github:liixini/skwd-wall/nix";
     };
@@ -57,6 +63,7 @@
       hjem,
       deploy-rs,
       pi,
+      llama-cpp,
       skwd-wall,
       umbriel,
       ...
@@ -103,6 +110,7 @@
             {
               nixpkgs.overlays = [
                 noctalia.overlays.default
+                llama-cpp.overlays.default
               ];
             }
           ];

@@ -1,9 +1,35 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
+let
+  # llama.cpp's CUDA build uses `cudaPackages.backendStdenv` instead of the
+  # regular stdenv, so `programs.ccache.packageNames` cannot reach it.  Wrap
+  # that stdenv with the system ccache wrapper explicitly.
+  ccacheCudaStdenv = pkgs.ccacheStdenv.override {
+    stdenv = pkgs.cudaPackages.backendStdenv;
+  };
+
+  llama-cpp = (pkgs.llamaPackages.llama-cpp.override {
+    useCuda = true;
+    effectiveStdenv = ccacheCudaStdenv;
+  }).overrideAttrs (old: {
+    # The stdenv wrapper only covers the host C/C++ compiler; send nvcc
+    # through ccache as well so the CUDA kernels are cached too.
+    cmakeFlags = old.cmakeFlags ++ [
+      "-DCMAKE_CUDA_COMPILER_LAUNCHER=${pkgs.ccache}/bin/ccache"
+    ];
+    env = (old.env or { }) // {
+      CCACHE_DIR = toString config.programs.ccache.cacheDir;
+      CCACHE_COMPRESS = "1";
+      CCACHE_SLOPPINESS = "random_seed";
+      CCACHE_UMASK = "007";
+    };
+  });
+in
 {
-  # llama.cpp with its CUDA backend.  nixpkgs ships `llama-cpp-cuda` (a thin
-  # `llama-cpp.override { cudaSupport = true; }`), so there is no need for a
-  # custom flake input or overlay anymore.
-  environment.systemPackages = [ pkgs.llama-cpp-cuda ];
+  # llama.cpp from its own flake (overlay applied in flake.nix), so we track
+  # upstream instead of waiting for nixpkgs.  Overriding `useCuda` builds only
+  # llama.cpp against CUDA; the rest of the system stays on the normal package
+  # set (no global `cudaSupport` rebuilds).
+  environment.systemPackages = [ llama-cpp ];
 
   # The RTX 4070 is Ada Lovelace (sm_89).  Without this nixpkgs emits device
   # code for every CUDA architecture it knows about, which makes the first
@@ -19,7 +45,7 @@
   #
   # services.llama-cpp = {
   #   enable = true;
-  #   package = pkgs.llama-cpp-cuda;
+  #   package = llama-cpp;
   #   settings = {
   #     host = "127.0.0.1";
   #     port = 8080;
