@@ -65,7 +65,7 @@ in
     bat
     bibata-cursors
     vimPlugins.blink-cmp
-    # broot
+    broot
     btop
     curl
     deploy-rs
