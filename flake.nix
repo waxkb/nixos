@@ -39,8 +39,11 @@
     };
 
     # Upstream llama.cpp, so new model support lands before nixpkgs catches up.
+    # TODO: pinned to the merge of ggml-org/llama.cpp#32645 (webui favicon copy
+    # hits EACCES in the sandbox, plus missing nvml.h).  Go back to plain
+    # `github:ggml-org/llama.cpp` once that PR is merged.
     llama-cpp = {
-      url = "github:ggml-org/llama.cpp";
+      url = "github:ggml-org/llama.cpp/refs/pull/32645/merge";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
