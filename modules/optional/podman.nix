@@ -15,6 +15,7 @@
           "quay.io"
         ];
       };
+      cdi.dynamic.enable = true;
     };
     podman = {
       enable = true;
@@ -22,4 +23,6 @@
       defaultNetwork.settings.dns_enabled = true;
     };
   };
+
+  hardware.nvidia-container-toolkit.enable = true;
 }
