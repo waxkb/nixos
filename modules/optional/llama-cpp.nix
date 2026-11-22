@@ -15,6 +15,7 @@ let
     # through ccache as well so the CUDA kernels are cached too.
     cmakeFlags = old.cmakeFlags ++ [
       "-DCMAKE_CUDA_COMPILER_LAUNCHER=${pkgs.ccache}/bin/ccache"
+      "-DGGML_CUDA_FA_QUANTS=q4_0-q4_0;q8_0-q8_0;f16-f16;bf16-bf16;q8_0-q4_0"
     ];
     env = (old.env or { }) // {
       CCACHE_DIR = toString config.programs.ccache.cacheDir;

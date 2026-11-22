@@ -43,7 +43,8 @@
     # hits EACCES in the sandbox, plus missing nvml.h).  Go back to plain
     # `github:ggml-org/llama.cpp` once that PR is merged.
     llama-cpp = {
-      url = "github:ggml-org/llama.cpp/refs/pull/32645/merge";
+      # url = "github:ggml-org/llama.cpp/refs/pull/32645/merge";
+      url = "github:waxkb/llama.cpp/asdf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

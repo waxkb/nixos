@@ -219,16 +219,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1795204638,
-        "narHash": "sha256-Ldu3onufOBlsg3t8firbOhgBxk3ZMr5cOjZlAx3ZKHM=",
-        "owner": "ggml-org",
+        "lastModified": 1795331611,
+        "narHash": "sha256-FZzpU05qVBp6HhN86asrZN8+gQS0bXAgW1rGZHiWXTc=",
+        "owner": "waxkb",
         "repo": "llama.cpp",
-        "rev": "164b9e0758f25230ac982f2cd135c119dd5865ae",
+        "rev": "063e0b0e7b2b8811d987ed1e71066f1a39154f6d",
         "type": "github"
       },
       "original": {
-        "owner": "ggml-org",
-        "ref": "refs/pull/32645/merge",
+        "owner": "waxkb",
+        "ref": "asdf",
         "repo": "llama.cpp",
         "type": "github"
       }
