@@ -126,7 +126,6 @@ in
     wl-clipboard
     xwayland-satellite
     yazi
-    yubikey-manager
     zathura
     # zathuraPkgs.zathura_pdf_poppler
     # (zathuraPkgs.zathuraWrapper.override { useMupdf = false; })
