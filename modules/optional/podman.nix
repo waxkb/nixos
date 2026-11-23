@@ -15,7 +15,6 @@
           "quay.io"
         ];
       };
-      cdi.dynamic.nvidia.enable = true;
     };
     podman = {
       enable = true;
