@@ -109,6 +109,7 @@
             ./modules/optional/pi.nix
             ./modules/optional/podman.nix
             # ./modules/optional/skwd-wall.nix
+            ./modules/optional/tailscale.nix
             ./modules/optional/umbriel.nix
             ./modules/optional/yubikey.nix
             {
