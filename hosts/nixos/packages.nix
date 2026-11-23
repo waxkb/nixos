@@ -106,6 +106,7 @@ in
     opencode
     # parted
     pavucontrol
+    pinentry-curses
     pkg-config
     playerctl
     pulseaudio
