@@ -42,11 +42,10 @@
     # TODO: pinned to the merge of ggml-org/llama.cpp#32645 (webui favicon copy
     # hits EACCES in the sandbox, plus missing nvml.h).  Go back to plain
     # `github:ggml-org/llama.cpp` once that PR is merged.
-    llama-cpp = {
-      # url = "github:ggml-org/llama.cpp/refs/pull/32645/merge";
-      url = "github:waxkb/llama.cpp/asdf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # llama-cpp = {
+    #   url = "github:ggml-org/llama.cpp/refs/pull/32645/merge";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # skwd-wall = {
     #   url = "github:liixini/skwd-wall/nix";
@@ -67,7 +66,7 @@
       hjem,
       deploy-rs,
       pi,
-      llama-cpp,
+      # llama-cpp,
       # skwd-wall,
       umbriel,
       ...
@@ -101,7 +100,7 @@
             ./modules/optional/greetd.nix
             ./modules/optional/java.nix
             ./modules/optional/latestkernel.nix
-            ./modules/optional/llama-cpp.nix
+            # ./modules/optional/llama-cpp.nix
             # ./modules/optional/ncro.nix
             ./modules/optional/nh.nix
             # ./modules/optional/nixos-core.nix
@@ -115,7 +114,7 @@
             {
               nixpkgs.overlays = [
                 noctalia.overlays.default
-                llama-cpp.overlays.default
+                # llama-cpp.overlays.default
               ];
             }
           ];
