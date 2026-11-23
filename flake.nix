@@ -48,9 +48,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    skwd-wall = {
-      url = "github:liixini/skwd-wall/nix";
-    };
+    # skwd-wall = {
+    #   url = "github:liixini/skwd-wall/nix";
+    # };
 
     umbriel.url = "github:noctalia-dev/umbriel/cachix";
 
@@ -68,7 +68,7 @@
       deploy-rs,
       pi,
       llama-cpp,
-      skwd-wall,
+      # skwd-wall,
       umbriel,
       ...
     }:
@@ -108,7 +108,7 @@
             ./modules/optional/nix-ld.nix
             ./modules/optional/pi.nix
             ./modules/optional/podman.nix
-            ./modules/optional/skwd-wall.nix
+            # ./modules/optional/skwd-wall.nix
             ./modules/optional/umbriel.nix
             ./modules/optional/yubikey.nix
             {
