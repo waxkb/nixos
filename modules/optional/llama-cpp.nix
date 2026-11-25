@@ -1,19 +1,18 @@
-{ config, pkgs, ... }:
+# description: llama.cpp with CUDA and ccache
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
-  # llama.cpp's CUDA build uses `cudaPackages.backendStdenv` instead of the
-  # regular stdenv, so `programs.ccache.packageNames` cannot reach it.  Wrap
-  # that stdenv with the system ccache wrapper explicitly.
-  ccacheCudaStdenv = pkgs.ccacheStdenv.override {
-    stdenv = pkgs.cudaPackages.backendStdenv;
-  };
-
-  llama-cpp = (pkgs.llamaPackages.llama-cpp.override {
-    useCuda = true;
-    effectiveStdenv = ccacheCudaStdenv;
-  }).overrideAttrs (old: {
-    # The stdenv wrapper only covers the host C/C++ compiler; send nvcc
-    # through ccache as well so the CUDA kernels are cached too.
-    cmakeFlags = old.cmakeFlags ++ [
+  llama-cpp = pkgs.llama-cpp-cuda.overrideAttrs (old: {
+    # Send the host and CUDA compilers through ccache so repeat builds of
+    # llama.cpp are cheap. cudaCapabilities below keeps the build focused on
+    # the local GPU architecture.
+    cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+      "-DCMAKE_C_COMPILER_LAUNCHER=${pkgs.ccache}/bin/ccache"
+      "-DCMAKE_CXX_COMPILER_LAUNCHER=${pkgs.ccache}/bin/ccache"
       "-DCMAKE_CUDA_COMPILER_LAUNCHER=${pkgs.ccache}/bin/ccache"
       "-DGGML_CUDA_FA_QUANTS=q4_0-q4_0;q8_0-q8_0;f16-f16;bf16-bf16;q8_0-q4_0"
     ];
@@ -26,22 +25,23 @@ let
   });
 in
 {
-  # llama.cpp from its own flake (overlay applied in flake.nix), so we track
-  # upstream instead of waiting for nixpkgs.  Overriding `useCuda` builds only
-  # llama.cpp against CUDA; the rest of the system stays on the normal package
-  # set (no global `cudaSupport` rebuilds).
+  imports = [ ./ccache.nix ];
+
+  # llama.cpp with CUDA from nixpkgs. Only llama.cpp is CUDA-enabled; the rest
+  # of the system stays on the normal package set (no global cudaSupport
+  # rebuilds).
   environment.systemPackages = [ llama-cpp ];
 
-  # The RTX 4070 is Ada Lovelace (sm_89).  Without this nixpkgs emits device
+  # The RTX 4070 is Ada Lovelace (sm_89). Without this nixpkgs emits device
   # code for every CUDA architecture it knows about, which makes the first
-  # build much slower.  Remove/adjust this if the GPU changes.
-  nixpkgs.config.cudaCapabilities = [ "8.9" ];
+  # build much slower. Remove/adjust this if the GPU changes.
+  nixpkgs.config.cudaCapabilities = lib.mkDefault [ "8.9" ];
 
   # Optional always-on OpenAI-compatible server + web UI.
   #
   # The module runs as a DynamicUser with ProtectHome = true, so it cannot
-  # read models from /home.  Easiest is to let llama-server download the model
-  # itself (it is cached in /var/cache/llama-cpp).  For a local .gguf you would
+  # read models from /home. Easiest is to let llama-server download the model
+  # itself (it is cached in /var/cache/llama-cpp). For a local .gguf you would
   # need to put it in a system path and manage permissions yourself.
   #
   # services.llama-cpp = {

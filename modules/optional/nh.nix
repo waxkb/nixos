@@ -1,3 +1,4 @@
+# description: nh NixOS helper with automatic cleaning
 {
   config,
   lib,

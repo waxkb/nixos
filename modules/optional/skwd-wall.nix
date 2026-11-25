@@ -1,3 +1,5 @@
+# description: skwd-wall wallpaper service
+# requires: desktop
 {
   config,
   lib,

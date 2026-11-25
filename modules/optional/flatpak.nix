@@ -1,3 +1,4 @@
+# description: Flatpak support
 {
   config,
   lib,

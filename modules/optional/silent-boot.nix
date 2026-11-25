@@ -1,3 +1,4 @@
+# description: Quiet boot kernel parameters
 {
   config,
   lib,

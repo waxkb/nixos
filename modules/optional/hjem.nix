@@ -1,3 +1,4 @@
+# description: hjem declarative dotfiles for user max
 {
   config,
   lib,
@@ -6,6 +7,8 @@
   ...
 }:
 {
+  imports = [ inputs.hjem.nixosModules.default ];
+
   hjem.users.max = {
     enable = true;
     directory = "/home/max";

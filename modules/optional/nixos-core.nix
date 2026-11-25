@@ -1,3 +1,4 @@
+# description: manic-systems nixos-core module
 {
   config,
   lib,
@@ -6,5 +7,7 @@
   ...
 }:
 {
+  imports = [ inputs.nixos-core.nixosModules.default ];
+
   system.nixos-core.enable = true;
 }

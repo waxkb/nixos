@@ -1,3 +1,4 @@
+# description: Fonts and fontconfig defaults
 {
   config,
   lib,
@@ -6,6 +7,8 @@
   ...
 }:
 {
+  nixpkgs.config.freetype.hinting = true;
+
   fonts = {
     packages = with pkgs; [
       # nerd-fonts.jetbrains-mono

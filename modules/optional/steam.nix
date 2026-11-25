@@ -1,3 +1,5 @@
+# description: Steam and GameMode
+# requires: desktop
 {
   config,
   lib,

@@ -1,3 +1,4 @@
+# description: pi coding agent
 {
   config,
   lib,

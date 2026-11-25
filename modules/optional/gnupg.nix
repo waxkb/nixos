@@ -1,3 +1,4 @@
+# description: GnuPG agent with SSH support
 {
   config,
   lib,

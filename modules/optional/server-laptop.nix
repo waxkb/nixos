@@ -1,3 +1,4 @@
+# description: Laptop-as-server power/lid policy
 {
   config,
   lib,

@@ -1,3 +1,4 @@
+# description: YubiKey and smartcard support
 {
   config,
   lib,

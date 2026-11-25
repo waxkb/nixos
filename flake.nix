@@ -1,20 +1,11 @@
 {
-  description = "saldkjf";
-  inputs = {
+  description = "waxkb NixOS flake";
 
+  inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # nixos-core.url = "github:manic-systems/nixos-core";
-
-    # ncro.url = "github:manic-systems/ncro";
-
-    matugen = {
-      url = "github:InioX/Matugen";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    noctalia = {
-      url = "github:noctalia-dev/noctalia";
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,13 +14,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    glide = {
-      url = "github:glide-browser/glide.nix";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    deploy-rs = {
-      url = "github:serokell/deploy-rs";
+    glide = {
+      url = "github:glide-browser/glide.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -38,19 +29,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Upstream llama.cpp, so new model support lands before nixpkgs catches up.
-    # TODO: pinned to the merge of ggml-org/llama.cpp#32645 (webui favicon copy
-    # hits EACCES in the sandbox, plus missing nvml.h).  Go back to plain
-    # `github:ggml-org/llama.cpp` once that PR is merged.
-    # llama-cpp = {
-    #   url = "github:ggml-org/llama.cpp/refs/pull/32645/merge";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
-
-    # skwd-wall = {
-    #   url = "github:liixini/skwd-wall/nix";
-    # };
-
     umbriel.url = "github:noctalia-dev/umbriel/cachix";
 
     spotatui = {
@@ -58,106 +36,72 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ncro = {
+      url = "github:manic-systems/ncro";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-core = {
+      url = "github:manic-systems/nixos-core";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    skwd-wall = {
+      url = "github:liixini/skwd-wall/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
+
   outputs =
     inputs@{
       self,
       nixpkgs,
-      matugen,
-      noctalia,
-      # ncro,
-      # nixos-core,
-      glide,
-      hjem,
       deploy-rs,
-      pi,
-      # llama-cpp,
-      # skwd-wall,
-      umbriel,
-      spotatui,
       ...
     }:
     let
+      lib = nixpkgs.lib;
 
-      system = "x86_64-linux";
+      hostNames = builtins.attrNames (
+        lib.filterAttrs (_: type: type == "directory") (builtins.readDir ./hosts)
+      );
 
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      mkHost =
+        name:
+        let
+          meta = import (./hosts + "/${name}/meta.nix");
+        in
+        {
+          inherit meta;
+          config = lib.nixosSystem {
+            system = meta.system;
+            modules = [
+              (./hosts + "/${name}")
+              ./modules/global
+            ];
+            specialArgs = { inherit inputs; };
+          };
+        };
 
+      hosts = lib.genAttrs hostNames mkHost;
+
+      deployedHosts = lib.filterAttrs (_: host: host.meta.deploy.enable or false) hosts;
     in
     {
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            # nixos-core.nixosModules.default
-            # inputs.ncro.nixosModules.default
-            ./hosts/nixos
-            ./modules/global
-            ./modules/hardware/cpu-amd.nix
-            ./modules/hardware/gpu-nvidia.nix
-            ./modules/optional/ccache.nix
-            ./modules/optional/desktop.nix
-            ./modules/optional/direnv.nix
-            ./modules/optional/fonts.nix
-            # ./modules/optional/gnupg.nix
-            ./modules/optional/greetd.nix
-            ./modules/optional/java.nix
-            ./modules/optional/latestkernel.nix
-            # ./modules/optional/llama-cpp.nix
-            # ./modules/optional/ncro.nix
-            ./modules/optional/nh.nix
-            # ./modules/optional/nixos-core.nix
-            ./modules/optional/nix-ld.nix
-            ./modules/optional/pi.nix
-            ./modules/optional/podman.nix
-            # ./modules/optional/skwd-wall.nix
-            ./modules/optional/spotatui.nix
-            ./modules/optional/tailscale.nix
-            ./modules/optional/umbriel.nix
-            ./modules/optional/yubikey.nix
-            {
-              nixpkgs.overlays = [
-                noctalia.overlays.default
-                # llama-cpp.overlays.default
-              ];
-            }
-          ];
+      nixosConfigurations = lib.mapAttrs (_: host: host.config) hosts;
 
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-        server = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            inputs.hjem.nixosModules.default
-            ./hosts/server
-            ./modules/global
-            ./modules/optional/hjem.nix
-            ./modules/optional/latestkernel.nix
-            ./modules/optional/podman.nix
-            ./modules/optional/server-laptop.nix
-            ./modules/optional/nh.nix
-          ];
-          specialArgs = {
-            inherit inputs;
-          };
-        };
-      };
-      deploy.nodes = {
-        server = {
-          hostname = "10.0.0.43";
+      deploy.nodes = lib.mapAttrs' (
+        name: host:
+        lib.nameValuePair name {
+          hostname = host.meta.deploy.hostname;
           profiles.system = {
-            sshUser = "root";
+            sshUser = host.meta.deploy.sshUser;
             user = "root";
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.server;
+            path = deploy-rs.lib.${host.meta.system}.activate.nixos host.config;
           };
-        };
-      };
+        }
+      ) deployedHosts;
 
-      checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     };
 }

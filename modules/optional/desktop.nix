@@ -1,3 +1,4 @@
+# description: Desktop session base (X11/Xwayland, polkit, graphics)
 {
   config,
   lib,
@@ -6,36 +7,19 @@
   ...
 }:
 {
-  # Desktop (niri + pipewire) base. GPU-agnostic on purpose: the
-  # installer adds exactly one (or two on hybrid) of
-  # modules/hardware/gpu-{nvidia,amd,intel}.nix, which sets
-  # services.xserver.videoDrivers + hardware.graphics extras.
-  # Do NOT hardcode videoDrivers here.
+  # Desktop base. Compositor (niri) and audio (pipewire) are separate
+  # optional modules so they can be selected independently.
   services.xserver = {
     enable = true;
     xkb = {
-      layout = "us";
-      variant = "";
+      layout = lib.mkDefault "us";
+      variant = lib.mkDefault "";
     };
   };
 
   programs.xwayland.enable = true;
 
-  programs.niri.enable = true;
-  programs.niri.useNautilus = false;
-
   security.polkit.enable = true;
-
-  security.rtkit.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = false;
-    wireplumber.enable = true;
-  };
 
   services.speechd.enable = false;
 
@@ -61,15 +45,17 @@
 
   programs.kdeconnect.enable = lib.mkDefault false;
 
-  # Desktop defaults (moved here from hosts/nixos/configuration.nix so
-  # new hosts inherit them). modules/hardware/laptop.nix overrides the
-  # power + bluetooth bits with mkForce for laptops.
   services.power-profiles-daemon.enable = lib.mkDefault false;
   services.upower.enable = lib.mkDefault false;
 
   hardware.bluetooth = {
     enable = lib.mkDefault false;
     powerOnBoot = lib.mkDefault false;
+    settings = {
+      General = {
+        Experimental = true;
+      };
+    };
   };
   services.blueman.enable = lib.mkDefault false;
 

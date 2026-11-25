@@ -1,3 +1,4 @@
+# description: spotatui terminal Spotify client
 {
   config,
   lib,

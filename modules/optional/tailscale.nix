@@ -1,3 +1,4 @@
+# description: Tailscale mesh VPN
 {
   config,
   lib,

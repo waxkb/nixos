@@ -1,3 +1,4 @@
+# description: Java (Temurin 21)
 {
   config,
   lib,

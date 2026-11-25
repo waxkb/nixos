@@ -1,3 +1,5 @@
+# description: Umbriel Wayland compositor
+# requires: desktop
 {
   config,
   lib,

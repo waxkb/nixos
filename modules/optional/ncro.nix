@@ -1,3 +1,4 @@
+# description: ncro Nix binary cache proxy
 {
   config,
   lib,
@@ -6,6 +7,8 @@
   ...
 }:
 {
+  imports = [ inputs.ncro.nixosModules.default ];
+
   services.ncro = {
     enable = true;
     settings = {

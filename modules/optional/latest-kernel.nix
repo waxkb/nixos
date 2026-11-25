@@ -1,3 +1,4 @@
+# description: Latest mainline Linux kernel
 {
   config,
   lib,

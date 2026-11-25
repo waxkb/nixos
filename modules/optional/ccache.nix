@@ -1,3 +1,4 @@
+# description: ccache compiler cache
 {
   config,
   lib,

@@ -5,7 +5,7 @@
 
   hardware.graphics = {
     enable = true;
-    enable32Bit = false;
+    enable32Bit = lib.mkDefault false;
     extraPackages = with pkgs; [
       rocmPackages.clr.icd
       libva-vdpau-driver

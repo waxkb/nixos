@@ -1,3 +1,5 @@
+# description: greetd + tuigreet login manager
+# requires: niri
 {
   config,
   lib,

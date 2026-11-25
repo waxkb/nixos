@@ -1,3 +1,4 @@
+# description: nix-ld FHS binary compatibility
 {
   config,
   lib,

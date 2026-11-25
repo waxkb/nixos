@@ -1,3 +1,4 @@
+# description: Podman containers with Docker compatibility
 {
   config,
   lib,
@@ -23,5 +24,5 @@
     };
   };
 
-  hardware.nvidia-container-toolkit.enable = true;
+  users.users.max.extraGroups = [ "podman" ];
 }

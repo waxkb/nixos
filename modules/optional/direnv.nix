@@ -1,3 +1,4 @@
+# description: direnv with nix-direnv
 {
   config,
   lib,
