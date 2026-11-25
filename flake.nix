@@ -53,6 +53,11 @@
 
     umbriel.url = "github:noctalia-dev/umbriel/cachix";
 
+    spotatui = {
+      url = "github:LargeModGames/spotatui";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
   outputs =
     inputs@{
@@ -69,6 +74,7 @@
       # llama-cpp,
       # skwd-wall,
       umbriel,
+      spotatui,
       ...
     }:
     let
@@ -108,6 +114,7 @@
             ./modules/optional/pi.nix
             ./modules/optional/podman.nix
             # ./modules/optional/skwd-wall.nix
+            ./modules/optional/spotatui.nix
             ./modules/optional/tailscale.nix
             ./modules/optional/umbriel.nix
             ./modules/optional/yubikey.nix

@@ -15,6 +15,7 @@
       "wheel"
       "networkmanager"
       "podman"
+      "adbusers"
     ];
 
     openssh.authorizedKeys.keys = [

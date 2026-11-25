@@ -62,6 +62,7 @@ in
 {
   environment.systemPackages = with pkgs; [
     activate-linux
+    android-tools
     bat
     bibata-cursors
     vimPlugins.blink-cmp
@@ -85,6 +86,7 @@ in
         AutofillCreditCardEnabled = false;
       };
     })
+    google-chrome
     # gptfdisk
     hyperfine
     hyprlock
