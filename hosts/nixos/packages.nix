@@ -117,6 +117,7 @@ in
     starship
     stdenv.cc.cc
     stow
+    surge-downloader
     # tex
     tofi
     tree
@@ -129,6 +130,7 @@ in
     wl-clipboard
     xwayland-satellite
     yazi
+    yt-dlp
     zathura
     # zathuraPkgs.zathura_pdf_poppler
     # (zathuraPkgs.zathuraWrapper.override { useMupdf = false; })
