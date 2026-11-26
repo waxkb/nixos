@@ -20,7 +20,10 @@
         "root"
       ];
       MaxAuthTries = 5;
-      PerSourcePenalties = "crash:3600s authfail:3600s max:86400s";
+      # Trusted Tailscale mesh is exempt from penalties; anything else gets
+      # short, sane bans instead of an hour-long ban from one hiccup.
+      PerSourcePenaltyExemptList = "100.64.0.0/10";
+      PerSourcePenalties = "crash:60s authfail:60s max:600s";
     };
   };
 
