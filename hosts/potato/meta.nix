@@ -3,7 +3,7 @@
 
   deploy = {
     enable = true;
-    hostname = "potato";
+    hostname = "100.116.44.7";
     sshUser = "root";
   };
 }
