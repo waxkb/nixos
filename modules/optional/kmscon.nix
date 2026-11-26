@@ -24,6 +24,13 @@
       hwaccel = true;
       libseat = true;
       font-name = "Maple Mono NF";
+
+      # Chromebook has no PageUp/PageDown keys. kmscon ignores two-finger
+      # scrolling (it only understands real wheel events), so use Search+Up /
+      # Search+Down for page scrolling. Shift+Up / Shift+Down (default) still
+      # scroll one line at a time.
+      "grab-page-up" = "<Logo>Up";
+      "grab-page-down" = "<Logo>Down";
     };
   };
 }
