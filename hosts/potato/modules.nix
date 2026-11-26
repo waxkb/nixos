@@ -24,6 +24,7 @@
     ../../modules/optional/java.nix
     ../../modules/optional/jdt-language-server.nix
     ../../modules/optional/jq.nix
+    ../../modules/optional/kmscon.nix
     ../../modules/optional/lz4.nix
     ../../modules/optional/microfetch.nix
     ../../modules/optional/neovim.nix
