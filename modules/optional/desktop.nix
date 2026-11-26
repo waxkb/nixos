@@ -68,6 +68,4 @@
     GTK_THEME = "Adwaita:dark";
     GTK_COLOR_SCHEME = "prefer-dark";
   };
-
-  systemd.services."getty@tty1".enable = false;
 }

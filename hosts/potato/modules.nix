@@ -18,7 +18,6 @@
     ../../modules/optional/gcc.nix
     ../../modules/optional/gita.nix
     ../../modules/optional/git.nix
-    ../../modules/optional/greetd.nix
     ../../modules/optional/infisical.nix
     ../../modules/optional/iwd.nix
     ../../modules/optional/java.nix

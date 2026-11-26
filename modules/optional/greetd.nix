@@ -8,6 +8,9 @@
   ...
 }:
 {
+  # greetd owns tty1, so getty must not be started there.
+  systemd.services."getty@tty1".enable = false;
+
   services.greetd = {
     enable = true;
     settings = {

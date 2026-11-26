@@ -13,9 +13,6 @@
 
   time.timeZone = "America/Los_Angeles";
 
-  # Overridden by modules/optional/desktop.nix when the desktop is selected.
-  services.xserver.xkb.layout = "us";
-
   # Installer uses by-label mounts; the generated hardware config is kept
   # verbatim and these mkForce definitions win.
   fileSystems."/" = lib.mkForce {
