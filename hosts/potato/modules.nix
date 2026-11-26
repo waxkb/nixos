@@ -10,10 +10,12 @@
     ../../modules/optional/ccache.nix
     ../../modules/optional/curl.nix
     ../../modules/optional/deploy-rs.nix
+    ../../modules/optional/deskop.nix
     ../../modules/optional/direnv.nix
     ../../modules/optional/envfs.nix
     ../../modules/optional/fast.nix
     ../../modules/optional/fonts.nix
+    ../../modules/optional/foot.nix
     ../../modules/optional/fzf.nix
     ../../modules/optional/gcc.nix
     ../../modules/optional/gita.nix
@@ -23,7 +25,6 @@
     ../../modules/optional/java.nix
     ../../modules/optional/jdt-language-server.nix
     ../../modules/optional/jq.nix
-    ../../modules/optional/kmscon.nix
     ../../modules/optional/lz4.nix
     ../../modules/optional/microfetch.nix
     ../../modules/optional/neovim.nix
@@ -40,6 +41,7 @@
     ../../modules/optional/stow.nix
     ../../modules/optional/tailscale.nix
     ../../modules/optional/tree-sitter.nix
+    ../../modules/optional/umbriel.nix
     ../../modules/optional/unzip.nix
     ../../modules/optional/wget.nix
     ../../modules/optional/wl-clipboard.nix
