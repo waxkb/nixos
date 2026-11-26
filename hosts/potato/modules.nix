@@ -45,7 +45,5 @@
     ../../modules/optional/wl-clipboard.nix
     ../../modules/optional/yazi.nix
     ../../modules/optional/zsh.nix
-    ../../modules/optional/niri.nix
-    ../../modules/optional/desktop.nix
   ];
 }
