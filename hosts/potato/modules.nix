@@ -10,7 +10,7 @@
     ../../modules/optional/ccache.nix
     ../../modules/optional/curl.nix
     ../../modules/optional/deploy-rs.nix
-    ../../modules/optional/deskop.nix
+    ../../modules/optional/desktop.nix
     ../../modules/optional/direnv.nix
     ../../modules/optional/envfs.nix
     ../../modules/optional/fast.nix
