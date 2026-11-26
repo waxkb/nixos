@@ -21,7 +21,10 @@
     enable = true;
     useXkbConfig = true;
     config = {
-      hwaccel = true;
+      # GL glyph uploads fail on the boot-time tty1 instance (amdgpu is still
+      # initializing), which leaves the console black. The software renderer
+      # is reliable here; kmscon's HW cursor plane still works either way.
+      hwaccel = false;
       libseat = true;
       font-name = "Maple Mono NF";
 
