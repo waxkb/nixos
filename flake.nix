@@ -52,7 +52,7 @@
     };
 
     yami = {
-      url = "github.com:Trendorin/yami";
+      url = "github:Trendorin/yami";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
