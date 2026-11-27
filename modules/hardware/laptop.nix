@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   # Laptop profile. Included by the installer only when the user says
   # the machine is a laptop. Deliberately does NOT disable sleep /
@@ -21,17 +26,12 @@
   services.thermald.enable = lib.mkDefault true;
   services.tlp.enable = lib.mkForce false; # conflicts with PPD
 
-  # Laptops move around: bluetooth + location + wifi regulatory help.
-  hardware.bluetooth = {
-    enable = lib.mkForce true;
-    powerOnBoot = true;
-    settings = {
-      General = {
-        Experimental = true;
-      };
-    };
-  };
-  services.blueman.enable = lib.mkForce true;
+  # Laptops move around: location + wifi regulatory help.
+  # Bluetooth off: unused, and BlueZ drains battery. Force it off rather
+  # than relying on the mkDefault in bluetooth.nix.
+  hardware.bluetooth.enable = lib.mkForce false;
+  hardware.bluetooth.powerOnBoot = lib.mkForce false;
+  services.blueman.enable = lib.mkForce false;
   services.geoclue2.enable = lib.mkForce true;
   hardware.wirelessRegulatoryDatabase = true;
   networking.networkmanager.wifi.backend = lib.mkDefault "iwd";

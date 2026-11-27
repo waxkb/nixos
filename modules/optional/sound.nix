@@ -1,6 +1,7 @@
-# description: PipeWire audio stack
+# description: Sound stack (PipeWire, RTKit, ALSA/Pulse compatibility, client tools)
 {
   lib,
+  pkgs,
   ...
 }:
 {
@@ -14,4 +15,9 @@
     alsa.support32Bit = lib.mkDefault false;
     wireplumber.enable = true;
   };
+
+  environment.systemPackages = [
+    pkgs.pavucontrol
+    pkgs.pulseaudio
+  ];
 }

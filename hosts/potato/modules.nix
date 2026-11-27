@@ -35,6 +35,7 @@
     ../../modules/optional/opencode.nix
     ../../modules/optional/pi.nix
     ../../modules/optional/pkg-config.nix
+    ../../modules/optional/power.nix
     ../../modules/optional/python.nix
     ../../modules/optional/ripgrep.nix
     ../../modules/optional/shfmt.nix

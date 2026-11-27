@@ -46,4 +46,12 @@
     install -d -o max -g users -m 755 /home/max/.config
     ln -sfnT /home/max/dotfiles/umbriel-chromebook /home/max/.config/umbriel-chromebook
   '';
+
+  # Chromebook-only Niri config. The shared config.kdl includes these files
+  # optionally, so no other host needs (or sees) them. Niri watches the
+  # optional includes and reloads when this link appears at activation.
+  system.activationScripts.niriChromebookConfig = lib.stringAfter [ "users" ] ''
+    install -d -o max -g users -m 755 /home/max/.config
+    ln -sfnT /home/max/dotfiles/niri-chromebook /home/max/.config/niri-chromebook
+  '';
 }
