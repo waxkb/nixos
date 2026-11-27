@@ -9,6 +9,7 @@
     ../../modules/optional/bat.nix
     ../../modules/optional/bibata-cursors.nix
     ../../modules/optional/blink-cmp.nix
+    ../../modules/optional/bluetooth.nix
     ../../modules/optional/broot.nix
     ../../modules/optional/btop.nix
     ../../modules/optional/ccache.nix
@@ -36,8 +37,10 @@
     ../../modules/optional/java.nix
     ../../modules/optional/jdt-language-server.nix
     ../../modules/optional/jq.nix
+    ../../modules/optional/kdeconnect.nix
     ../../modules/optional/latest-kernel.nix
     ../../modules/optional/libnotify.nix
+    ../../modules/optional/location.nix
     ../../modules/optional/lz4.nix
     ../../modules/optional/matugen.nix
     ../../modules/optional/microfetch.nix
@@ -51,17 +54,16 @@
     ../../modules/optional/noctalia.nix
     ../../modules/optional/nvidia-container-toolkit.nix
     ../../modules/optional/opencode.nix
-    ../../modules/optional/pavucontrol.nix
     ../../modules/optional/pinentry-curses.nix
     ../../modules/optional/pi.nix
-    ../../modules/optional/pipewire.nix
     ../../modules/optional/pkg-config.nix
     ../../modules/optional/playerctl.nix
     ../../modules/optional/podman.nix
-    ../../modules/optional/pulseaudio.nix
+    ../../modules/optional/power.nix
     ../../modules/optional/python.nix
     ../../modules/optional/ripgrep.nix
     ../../modules/optional/shfmt.nix
+    ../../modules/optional/sound.nix
     ../../modules/optional/spotatui.nix
     ../../modules/optional/starship.nix
     ../../modules/optional/stdenv-cc.nix

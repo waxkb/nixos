@@ -26,6 +26,8 @@
     ../../modules/optional/java.nix
     ../../modules/optional/jdt-language-server.nix
     ../../modules/optional/jq.nix
+    ../../modules/optional/kdeconnect.nix
+    ../../modules/optional/location.nix
     ../../modules/optional/lz4.nix
     ../../modules/optional/microfetch.nix
     ../../modules/optional/neovim.nix
@@ -34,6 +36,7 @@
     ../../modules/optional/opencode.nix
     ../../modules/optional/pi.nix
     ../../modules/optional/pkg-config.nix
+    ../../modules/optional/power.nix
     ../../modules/optional/python.nix
     ../../modules/optional/ripgrep.nix
     ../../modules/optional/shfmt.nix
