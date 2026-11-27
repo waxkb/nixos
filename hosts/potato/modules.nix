@@ -44,6 +44,7 @@
     ../../modules/optional/stow.nix
     ../../modules/optional/tailscale.nix
     ../../modules/optional/tree-sitter.nix
+    ../../modules/optional/umbriel.nix
     ../../modules/optional/unzip.nix
     ../../modules/optional/wget.nix
     ../../modules/optional/wl-clipboard.nix
