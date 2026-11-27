@@ -30,6 +30,7 @@
     ../../modules/optional/microfetch.nix
     ../../modules/optional/neovim.nix
     ../../modules/optional/nh.nix
+    ../../modules/optional/niri.nix
     ../../modules/optional/nixfmt.nix
     ../../modules/optional/opencode.nix
     ../../modules/optional/pi.nix
@@ -42,7 +43,6 @@
     ../../modules/optional/stow.nix
     ../../modules/optional/tailscale.nix
     ../../modules/optional/tree-sitter.nix
-    ../../modules/optional/umbriel.nix
     ../../modules/optional/unzip.nix
     ../../modules/optional/wget.nix
     ../../modules/optional/wl-clipboard.nix
