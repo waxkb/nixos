@@ -50,6 +50,11 @@
       url = "github:liixini/skwd-wall/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    yami = {
+      url = "github.com:Trendorin/yami";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
