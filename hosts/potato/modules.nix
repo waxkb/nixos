@@ -20,7 +20,6 @@
     ../../modules/optional/gcc.nix
     ../../modules/optional/gita.nix
     ../../modules/optional/git.nix
-    ../../modules/optional/greetd.nix
     ../../modules/optional/infisical.nix
     ../../modules/optional/iwd.nix
     ../../modules/optional/java.nix
@@ -48,6 +47,7 @@
     ../../modules/optional/unzip.nix
     ../../modules/optional/wget.nix
     ../../modules/optional/wl-clipboard.nix
+    ../../modules/optional/yami.nix
     ../../modules/optional/yazi.nix
     ../../modules/optional/zsh.nix
   ];
