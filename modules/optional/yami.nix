@@ -7,7 +7,7 @@
   ...
 }:
 {
-  imports = [ yami.nixosModules.default ];
+  imports = [ inputs.yami.nixosModules.default ];
   programs.yami = {
     enable = true;
     loginScreen.user = "max";

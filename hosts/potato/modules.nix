@@ -4,6 +4,7 @@
     ../../modules/hardware/gpu-amd.nix
     ../../modules/hardware/laptop.nix
     ../../modules/optional/bat.nix
+    ../../modules/optional/bibata-cursors.nix
     ../../modules/optional/blink-cmp.nix
     ../../modules/optional/broot.nix
     ../../modules/optional/btop.nix
